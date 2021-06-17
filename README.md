@@ -4,6 +4,10 @@ This is a guide for One-click deployment of a pre-built POC (Test Drive) for Sy
 ## How should a CSA use this technical asset?
 ### Step 1
 
+### Step 2
+
+...
+
 
 ## Contributing
 
