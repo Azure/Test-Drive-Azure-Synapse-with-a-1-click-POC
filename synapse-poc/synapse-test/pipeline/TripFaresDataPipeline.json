@@ -1,0 +1,310 @@
+{
+	"name": "TripFaresDataPipeline",
+	"properties": {
+		"activities": [
+			{
+				"name": "IngestTripDataIntoADLS",
+				"description": "Copies the trip data csv file from the git repo and loads it into the ADLS.",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:10:00",
+					"retry": 3,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "tripsDataSource",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "tripDataSink",
+						"type": "DatasetReference",
+						"parameters": {
+							"datalakeAccountName": {
+								"value": "@pipeline().parameters.datalakeAccountName",
+								"type": "Expression"
+							},
+							"keyVaultName": {
+								"value": "@pipeline().parameters.KeyVaultName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "IngestTripFaresDataIntoADLS",
+				"description": "Copies the trip fare data csv file from the git repo and loads it into the ADLS.",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.00:10:00",
+					"retry": 3,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "faresDataSource",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "faresDataSink",
+						"type": "DatasetReference",
+						"parameters": {
+							"keyVaultName": {
+								"value": "@pipeline().parameters.KeyVaultName",
+								"type": "Expression"
+							},
+							"datalakeAccountName": {
+								"value": "@pipeline().parameters.datalakeAccountName",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "JoinAndAggregateData",
+				"description": "Reads the raw data from both CSV files inside the ADLS, performs the desired transformations (inner join and aggregation) and writes the transformed data into the synapse SQL pool.",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [
+					{
+						"activity": "Create Schema If Does Not Exists",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:30:00",
+					"retry": 3,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "tripFaresDataTransformations",
+						"type": "DataFlowReference",
+						"datasetParameters": {
+							"TripDataCSV": {
+								"datalakeAccountName": {
+									"value": "@pipeline().parameters.datalakeAccountName",
+									"type": "Expression"
+								},
+								"keyVaultName": {
+									"value": "@pipeline().parameters.KeyVaultName",
+									"type": "Expression"
+								}
+							},
+							"FaresDataCSV": {
+								"keyVaultName": {
+									"value": "@pipeline().parameters.KeyVaultName",
+									"type": "Expression"
+								},
+								"datalakeAccountName": {
+									"value": "@pipeline().parameters.datalakeAccountName",
+									"type": "Expression"
+								}
+							},
+							"SynapseAnalyticsSink": {
+								"SchemaName": {
+									"value": "@pipeline().parameters.SchemaName",
+									"type": "Expression"
+								},
+								"SynapseWorkspaceName": {
+									"value": "@pipeline().parameters.SynapseWorkspaceName",
+									"type": "Expression"
+								},
+								"SQLDedicatedPoolName": {
+									"value": "@pipeline().parameters.SQLDedicatedPoolName",
+									"type": "Expression"
+								},
+								"keyVaultName": {
+									"value": "@pipeline().parameters.KeyVaultName",
+									"type": "Expression"
+								},
+								"SQLLoginUsername": {
+									"value": "@pipeline().parameters.SQLLoginUsername",
+									"type": "Expression"
+								}
+							}
+						}
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			},
+			{
+				"name": "Create Schema If Does Not Exists",
+				"description": "Creates the schema inside the SQL dedicated pool. Shema name comes from the pipeline parameter 'SchemaName'.",
+				"type": "Lookup",
+				"dependsOn": [
+					{
+						"activity": "IngestTripDataIntoADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					},
+					{
+						"activity": "IngestTripFaresDataIntoADLS",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.00:05:00",
+					"retry": 3,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"sqlReaderQuery": {
+							"value": "IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = '@{pipeline().parameters.SchemaName}')\nBEGIN\nEXEC('CREATE SCHEMA @{pipeline().parameters.SchemaName}')\nselect Count(*) from sys.symmetric_keys;\nEND\nELSE\nBEGIN\n    select Count(*) from sys.symmetric_keys;\nEND",
+							"type": "Expression"
+						},
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"dataset": {
+						"referenceName": "azureSynapseAnalyticsSchema",
+						"type": "DatasetReference",
+						"parameters": {
+							"SynapseWorkspaceName": {
+								"value": "@pipeline().parameters.SynapseWorkspaceName",
+								"type": "Expression"
+							},
+							"SQLDedicatedPoolName": {
+								"value": "@pipeline().parameters.SQLDedicatedPoolName",
+								"type": "Expression"
+							},
+							"keyVaultName": {
+								"value": "@pipeline().parameters.KeyVaultName",
+								"type": "Expression"
+							},
+							"SQLLoginUsername": {
+								"value": "@pipeline().parameters.SQLLoginUsername",
+								"type": "Expression"
+							}
+						}
+					},
+					"firstRowOnly": false
+				}
+			}
+		],
+		"parameters": {
+			"SchemaName": {
+				"type": "string",
+				"defaultValue": "tripFares"
+			},
+			"SynapseWorkspaceName": {
+				"type": "string",
+				"defaultValue": "<synapse-workspace-name>.database.windows.net"
+			},
+			"SQLDedicatedPoolName": {
+				"type": "string",
+				"defaultValue": "<sql-dedicated-pool-name>"
+			},
+			"SQLLoginUsername": {
+				"type": "string",
+				"defaultValue": "<sql-login-username>"
+			},
+			"KeyVaultName": {
+				"type": "string",
+				"defaultValue": "<keyvaukt-name>"
+			},
+			"datalakeAccountName": {
+				"type": "string",
+				"defaultValue": "<datalake-account-name>"
+			}
+		},
+		"folder": {
+			"name": "TripFaresDataPipeline"
+		},
+		"annotations": []
+	}
+}

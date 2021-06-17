@@ -1,0 +1,24 @@
+{
+	"name": "faresDataSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "HttpServerTripFareDataLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "TripFareDatasets"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
