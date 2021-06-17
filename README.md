@@ -1,12 +1,36 @@
 ## One-Click Deployment of Rapid Synapse POC Accelerator 
 This is a guide for One-click deployment of a pre-built POC (Test Drive) for Synapse into customers’ subscription. 
 
+[![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fazure%2Fazure-synapse-consumption-play%2Fsynapse-poc%2Fmain%2Fazuredeploy.json) 
+
+![Synapse Analytics](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/101-synapse-poc/images/synapse1.png)
+
 ## How should a CSA use this technical asset?
 ### Step 1
 
 ### Step 2
 
 ...
+
+This template deploys necessary resources to run an Azure Synapse Proof-of-Concept
+
+This template deploys the following:
+
+- An Azure Synapse Workspace
+  - (OPTIONAL) Allows All connections in by default (Firewall IP Addresses)
+  - Allows Azure Services to access the workspace by default
+  - Managed Virtual Network is Enabled
+- An Azure Synapse SQL Pool
+- (OPTIONAL) Apache Spark Pool
+  - Auto-paused set to 15 minutes of idling
+- Azure Data Lake Storage Gen2 account
+  - Azure Synapse Workspace identity given Storage Blob Data Contributor to the Storage Account
+    - A new File System inside the Storage Account to be used by Azure Synapse
+- A Logic App to Pause the SQL Pool at defined schedule
+  - The Logic App will check for Active Queries. If there are active queries, it will wait 5 minutes and check again until there are none before pausing
+- A Logic App to Resume the SQL Pool at defined schedule
+- Both Logic App managed identities are given Contributor rights to the Resource Group
+- Grants the Workspace identity CONTROL to all SQL pools and SQL on-demand pool
 
 
 ## Contributing
