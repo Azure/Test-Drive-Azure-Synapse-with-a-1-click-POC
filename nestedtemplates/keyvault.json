@@ -30,10 +30,6 @@
         "sqlSecretValue": "[parameters('sqlAdministratorLoginPassword')]",
         "adlsSecretName": "adlsAccessKey",
         "adlsSecretValue": "[parameters('datalakeAccountAccessKeyValue')]",
-        "sourceBlobSecretName": "sourceBlobSasUri",
-        "sourceBlobSecretValue": "https://yellowtripdata.blob.core.windows.net/?sv=2020-02-10&ss=bfqt&srt=sco&sp=rwdlacuptfx&se=2061-06-11T03:30:37Z&st=2021-06-10T19:30:37Z&spr=https&sig=BDYHEwS9J%2BTPthsyOcVJwY5gmFcexZI0rx00hnOt%2BCY%3D",
-        "sodsSourceBlobSecretName": "sodsSourceBlobSasUri",
-        "sodsSourceBlobSecretValue": "https://sqlondemandstorage.blob.core.windows.net/?sv=2018-03-28&ss=bf&srt=sco&sp=rl&st=2019-10-14T12%3A10%3A25Z&se=2061-12-31T12%3A10%3A00Z&sig=KlSU2ullCscyTS0An0nozEpo4tO5JAgGBvw%2FJX2lguw%3D",
         "tenantId": "[subscription().tenantId]"
     },
 
@@ -79,30 +75,6 @@
         ],
         "properties": {
           "value": "[variables('adlsSecretValue')]"
-        }
-      },
-      {
-        "type": "Microsoft.KeyVault/vaults/secrets",
-        "apiVersion": "2019-09-01",
-        "name": "[concat(parameters('keyVaultName'), '/', variables('sourceBlobSecretName'))]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-          "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
-        ],
-        "properties": {
-          "value": "[variables('sourceBlobSecretValue')]"
-        }
-      },
-      {
-        "type": "Microsoft.KeyVault/vaults/secrets",
-        "apiVersion": "2019-09-01",
-        "name": "[concat(parameters('keyVaultName'), '/', variables('sodsSourceBlobSecretName'))]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-          "[resourceId('Microsoft.KeyVault/vaults', parameters('keyVaultName'))]"
-        ],
-        "properties": {
-          "value": "[variables('sodsSourceBlobSecretValue')]"
         }
       }
     ],

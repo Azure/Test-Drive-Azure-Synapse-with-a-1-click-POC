@@ -2,17 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "_artifactsLocation": {
-      "type": "string",
-      "defaultValue": "[deployment().properties.templatelink.uri]"
-    },
-    "location": {
-      "type": "string",
-      "defaultValue": "[resourceGroup().location]",
-      "metadata": {
-        "description": "Location for your deployment."
-      }
-    },
     "companyTla": {
       "type": "string",
       "metadata": {
@@ -237,7 +226,7 @@
         "description": "Time of day when the data warehouse will be paused"
       }
     },
-    "enableTransparentDataEncryption": {
+    "transparentDataEncryption": {
         "type": "string",
         "defaultValue": "Enabled",
         "allowedValues": [
@@ -256,6 +245,8 @@
     }
   },
   "variables": {
+    "_artifactsLocation": "[deployment().properties.templatelink.uri]",
+    "location": "[resourceGroup().location]",
     "deploymentType": "poc",
     "synapseName": "[toLower(concat(parameters('companyTla'),uniquestring(resourceGroup().id),variables('deploymentType')))]",
     "dlsName": "[toLower(concat('dls',parameters('companyTla'),uniquestring(resourceGroup().id),variables('deploymentType')))]",
@@ -281,11 +272,11 @@
       "properties": {
         "mode": "Incremental",
         "templatelink": {
-          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/keyvault.json'))]"
+          "uri": "[uri(variables('_artifactsLocation'), concat('nestedtemplates/keyvault.json'))]"
         },
         "parameters": {
             "location": {
-                "value": "[parameters('location')]"
+                "value": "[variables('location')]"
             },
             "keyVaultName": {
                 "value": "[variables('keyVaultName')]"
@@ -310,11 +301,11 @@
         "properties": {
           "mode": "Incremental",
           "templatelink": {
-            "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/keyvaultpermissionsupdate.json'))]"
+            "uri": "[uri(variables('_artifactsLocation'), concat('nestedtemplates/keyvaultpermissionsupdate.json'))]"
           },
           "parameters": {
               "location": {
-                  "value": "[parameters('location')]"
+                  "value": "[variables('location')]"
               },
               "keyVaultName": {
                   "value": "[variables('keyVaultName')]"
@@ -332,7 +323,7 @@
       "properties": {
         "mode": "Incremental",
         "templatelink": {
-          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/pausetemplate.json'))]"
+          "uri": "[uri(variables('_artifactsLocation'), concat('nestedtemplates/pausetemplate.json'))]"
         },
         "parameters": {
           "logicAppName": {
@@ -354,7 +345,7 @@
             "value": "[parameters('PauseTime')]"
           },
           "location": {
-            "value": "[parameters('location')]"
+            "value": "[variables('location')]"
           }
         }
       }
@@ -366,7 +357,7 @@
       "properties": {
         "mode": "Incremental",
         "templatelink": {
-          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/resumetemplate.json'))]"
+          "uri": "[uri(variables('_artifactsLocation'), concat('nestedtemplates/resumetemplate.json'))]"
         },
         "parameters": {
           "logicAppName": {
@@ -388,7 +379,7 @@
             "value": "[parameters('ResumeTime')]"
           },
           "location": {
-            "value": "[parameters('location')]"
+            "value": "[variables('location')]"
           }
         }
       }
@@ -397,7 +388,7 @@
       "type": "Microsoft.Storage/storageAccounts",
       "apiVersion": "2019-06-01",
       "name": "[variables('dlsName')]",
-      "location": "[parameters('location')]",
+      "location": "[variables('location')]",
       "sku": {
         "name": "Standard_LRS"
       },
@@ -425,7 +416,7 @@
       "type": "Microsoft.Synapse/workspaces",
       "apiVersion": "2019-06-01-preview",
       "name": "[variables('workspaceName')]",
-      "location": "[parameters('location')]",
+      "location": "[variables('location')]",
       "identity": {
         "type": "SystemAssigned"
       },
@@ -455,7 +446,7 @@
           "type": "firewallrules",
           "apiVersion": "2019-06-01-preview",
           "name": "allowAll",
-          "location": "[parameters('location')]",
+          "location": "[variables('location')]",
           "dependsOn": [ "[variables('workspaceName')]" ],
           "properties": {
             "startIpAddress": "0.0.0.0",
@@ -466,7 +457,7 @@
           "type": "firewallrules",
           "apiVersion": "2019-06-01-preview",
           "name": "AllowAllWindowsAzureIps",
-          "location": "[parameters('location')]",
+          "location": "[variables('location')]",
           "dependsOn": [ "[variables('workspaceName')]" ],
           "properties": {
             "startIpAddress": "0.0.0.0",
@@ -477,7 +468,7 @@
           "type": "managedIdentitySqlControlSettings",
           "apiVersion": "2019-06-01-preview",
           "name": "default",
-          "location": "[parameters('location')]",
+          "location": "[variables('location')]",
           "dependsOn": [ "[variables('workspaceName')]" ],
           "properties": {
             "grantSqlControlToManagedIdentity": {
@@ -491,7 +482,7 @@
       "type": "Microsoft.Synapse/workspaces/sqlPools",
       "apiVersion": "2019-06-01-preview",
       "name": "[concat(variables('workspaceName'), '/', variables('sqlPoolName'))]",
-      "location": "[parameters('location')]",
+      "location": "[variables('location')]",
       "sku": {
         "name": "[parameters('sku')]"
       },
@@ -508,7 +499,7 @@
           "type": "metadataSync",
           "apiVersion": "2019-06-01-preview",
           "name": "config",
-          "location": "[parameters('location')]",
+          "location": "[variables('location')]",
           "dependsOn": [
             "[variables('sqlPoolName')]"
           ],
@@ -524,7 +515,7 @@
             "[variables('sqlPoolName')]"
           ],
           "properties": {
-            "status": "[parameters('enableTransparentDataEncryption')]"
+            "status": "[parameters('transparentDataEncryption')]"
           }
         }
       ]
@@ -534,7 +525,7 @@
       "type": "Microsoft.Synapse/workspaces/bigDataPools",
       "apiVersion": "2019-06-01-preview",
       "name": "[concat(variables('workspaceName'), '/', variables('sparkPoolName'))]",
-      "location": "[parameters('location')]",
+      "location": "[variables('location')]",
       "dependsOn": [
         "[variables('workspaceName')]"
       ],
@@ -559,7 +550,7 @@
       "type": "Microsoft.Authorization/roleAssignments",
       "apiVersion": "2020-04-01-preview",
       "name": "[guid(uniqueString(variables('dlsName')))]",
-      "location": "[parameters('location')]",
+      "location": "[variables('location')]",
       "dependsOn": [
         "[variables('workspaceName')]"
       ],
@@ -580,7 +571,7 @@
       "properties": {
         "mode": "Incremental",
         "templatelink": {
-          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/logicapproleassignments.json'))]"
+          "uri": "[uri(variables('_artifactsLocation'), concat('nestedtemplates/logicapproleassignments.json'))]"
         },
         "parameters": {
           "logicAppName": {
@@ -600,7 +591,7 @@
       "properties": {
         "mode": "Incremental",
         "templatelink": {
-          "uri": "[uri(parameters('_artifactsLocation'), concat('nestedtemplates/logicapproleassignments.json'))]"
+          "uri": "[uri(variables('_artifactsLocation'), concat('nestedtemplates/logicapproleassignments.json'))]"
         },
         "parameters": {
           "logicAppName": {

@@ -4,7 +4,7 @@
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "https://raw.githubusercontent.com/osamaemumba/101-synapse-poc/main/tripDataAndFaresCSV/fares-data.csv",
+			"url": "https://raw.githubusercontent.com/Azure/azure-synapse-consumption-play/main/tripDataAndFaresCSV/fares-data.csv",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		},
