@@ -33,10 +33,12 @@ This template allows the Administrator to deploy a Proof-of-Concept environment 
 ## Prerequisites
 
 - Owner role (otherwise Contributor + User Access Administrator roles) for the Azure Subscription the template being deployed in. This is for creation of a separate Proof-of-Concept Resource Group and to delegate roles necessary for this proof of concept.
-- Fork out [this github repository](https://github.com/Azure/azure-synapse-consumption-play) into your github account.
+
 
 ## Deployment
-Click 'Deploy To Azure' button given below to deploy all the resources. 
+1) Fork out [this github repository](https://github.com/Azure/azure-synapse-consumption-play) into your github account.
+ 
+2) Click 'Deploy To Azure' button given below to deploy all the resources. 
 
 [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-synapse-consumption-play%2Fmain%2Fazuredeploy.json)
 
