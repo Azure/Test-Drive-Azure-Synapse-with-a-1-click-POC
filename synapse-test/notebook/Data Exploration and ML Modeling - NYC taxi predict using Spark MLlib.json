@@ -1,36 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@atrahul 
-atrahul
-/
-101-synapse-poc
-forked from nashahz/101-synapse-poc
-0
-0
-5
-Code
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-101-synapse-poc/synapse-test/notebook/Data Exploration and ML Modeling - NYC taxi predict using Spark MLlib.json
-@nashahz
-nashahz Updating notebook: Data Exploration and ML Modeling - NYC taxi predic…
-…
-Latest commit 9fbb37f 3 hours ago
- History
- 1 contributor
-325 lines (325 sloc)  13.3 KB
-  
 {
 	"name": "Data Exploration and ML Modeling - NYC taxi predict using Spark MLlib",
 	"properties": {
