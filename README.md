@@ -33,8 +33,6 @@ This template allows the Administrator to deploy a Proof-of-Concept environment 
 ## Prerequisites
 
 - Owner role (otherwise Contributor + User Access Administrator roles) for the Azure Subscription the template being deployed in. This is for creation of a separate Proof-of-Concept Resource Group and to delegate roles necessary for this proof of concept.
-- The current Azure user needs to have "Storage Blob Data Contributor" role access to the Azure Data Lake Storage Gen2 account to avoid 403 type permission errors.
-
 
 ## Deployment
 1) Fork out [this github repository](https://github.com/Azure/azure-synapse-consumption-play) into your github account.
@@ -67,7 +65,7 @@ Click 'Review + Create'.
 On successfull validation, click 'Create'.
 
 ## Post Deployment
-
+- Current Azure user needs to have "Storage Blob Data Contributor" role access to recently created Azure Data Lake Storage Gen2 account to avoid 403 type permission errors.
 - After the deployment is complete, click 'Go to resource group'.
 - You'll see all the resources deployed in the resource group.
 - Click on the newly deployed Synapse workspace.
