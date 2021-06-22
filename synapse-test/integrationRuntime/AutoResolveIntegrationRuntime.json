@@ -11,6 +11,10 @@
 					"timeToLive": 0
 				}
 			}
+		},
+		"managedVirtualNetwork": {
+			"type": "ManagedVirtualNetworkReference",
+			"referenceName": "default"
 		}
 	}
 }
