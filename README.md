@@ -37,6 +37,8 @@ Owner role (otherwise Contributor + User Access Administrator roles) for the Azu
 ## Deployment
 
 - Fork out [this github repository](https://github.com/Azure/azure-synapse-consumption-play) into your github account.
+
+![Fork](https://raw.githubusercontent.com/Azure/azure-synapse-consumption-play/main/images/4.gif)
  
 - Click 'Deploy To Azure' button given below to deploy all the resources. 
 
