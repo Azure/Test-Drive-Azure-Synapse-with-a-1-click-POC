@@ -1,0 +1,325 @@
+{
+	"name": "Data Exploration and ML Modeling - NYC taxi predict using Spark MLlib",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 2,
+		"bigDataPool": {
+			"referenceName": "ws1sparkpool1",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "56g",
+			"driverCores": 8,
+			"executorMemory": "56g",
+			"executorCores": 8,
+			"numExecutors": 2,
+			"conf": {
+				"spark.dynamicAllocation.enabled": "false",
+				"spark.dynamicAllocation.minExecutors": "2",
+				"spark.dynamicAllocation.maxExecutors": "2"
+			}
+		},
+		"metadata": {
+			"saveOutput": true,
+			"synapse_widget": {
+				"version": "0.1"
+			},
+			"kernelspec": {
+				"name": "synapse_pyspark",
+				"display_name": "Synapse PySpark"
+			},
+			"language_info": {
+				"name": "python"
+			},
+			"a365ComputeOptions": {
+				"id": "/subscriptions/4eeedd72-d937-4243-86d1-c3982a84d924/resourceGroups/nashahzsfin/providers/Microsoft.Synapse/workspaces/mfstspdjvzuh3xeu2pocws1/bigDataPools/ws1sparkpool1",
+				"name": "ws1sparkpool1",
+				"type": "Spark",
+				"endpoint": "https://mfstspdjvzuh3xeu2pocws1.dev.azuresynapse.net/livyApi/versions/2019-11-01-preview/sparkPools/ws1sparkpool1",
+				"auth": {
+					"type": "AAD",
+					"authResource": "https://dev.azuresynapse.net"
+				},
+				"sparkVersion": "2.4",
+				"nodeCount": 5,
+				"cores": 8,
+				"memory": 56,
+				"automaticScaleJobs": false
+			},
+			"sessionKeepAliveTimeout": 30
+		},
+		"cells": [
+			{
+				"cell_type": "markdown",
+				"source": [
+					"# Predict NYC Taxi Tips using Spark ML and Azure Open Datasets\n",
+					"\n",
+					"The notebook ingests, visualizes, prepares and then trains a model based on an Open Dataset that tracks NYC Yellow Taxi trips and various attributes around them.\n",
+					"The goal is to predict for a given trip whether there will be a trip or not.\n",
+					"\n",
+					" https://docs.microsoft.com/en-us/azure/synapse-analytics/spark/apache-spark-machine-learning-mllib-notebook\n",
+					""
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"import matplotlib.pyplot as plt\n",
+					"\n",
+					"from pyspark.sql.functions import unix_timestamp\n",
+					"\n",
+					"from pyspark.sql import SparkSession\n",
+					"from pyspark.sql.types import *\n",
+					"from pyspark.sql.functions import *\n",
+					"\n",
+					"from pyspark.ml import Pipeline\n",
+					"from pyspark.ml import PipelineModel\n",
+					"from pyspark.ml.feature import RFormula\n",
+					"from pyspark.ml.feature import OneHotEncoder, StringIndexer, VectorIndexer\n",
+					"from pyspark.ml.classification import LogisticRegression\n",
+					"from pyspark.mllib.evaluation import BinaryClassificationMetrics\n",
+					"from pyspark.ml.evaluation import BinaryClassificationEvaluator"
+				],
+				"execution_count": 1
+			},
+			{
+				"cell_type": "markdown",
+				"source": [
+					"## Ingest Data¶ \n",
+					"\n",
+					"Get a sample data of nyc yellow taxi to make it faster/easier to evaluate different approaches to prep for the modelling phase later in the notebook."
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"# Import NYC yellow cab data from Azure Open Datasets\n",
+					"from azureml.opendatasets import NycTlcYellow\n",
+					"\n",
+					"from datetime import datetime\n",
+					"from dateutil import parser\n",
+					"\n",
+					"end_date = parser.parse('2018-05-08 00:00:00')\n",
+					"start_date = parser.parse('2018-05-01 00:00:00')\n",
+					"\n",
+					"nyc_tlc = NycTlcYellow(start_date=start_date, end_date=end_date)\n",
+					"nyc_tlc_df = nyc_tlc.to_spark_dataframe()"
+				],
+				"execution_count": 2
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"#To make development easier, faster and less expensive downsample for now\n",
+					"sampled_taxi_df = nyc_tlc_df.sample(True, 0.001, seed=1234)"
+				],
+				"execution_count": 3
+			},
+			{
+				"cell_type": "markdown",
+				"source": [
+					"## Exploratory Data Analysis\n",
+					"\n",
+					"Look at the data and evaluate its suitability for use in a model, do this via some basic charts focussed on tip values and relationships."
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"#The charting package needs a Pandas dataframe or numpy array do the conversion\n",
+					"sampled_taxi_pd_df = sampled_taxi_df.toPandas()\n",
+					"\n",
+					"# Look at tips by amount count histogram\n",
+					"ax1 = sampled_taxi_pd_df['tipAmount'].plot(kind='hist', bins=25, facecolor='lightblue')\n",
+					"ax1.set_title('Tip amount distribution')\n",
+					"ax1.set_xlabel('Tip Amount ($)')\n",
+					"ax1.set_ylabel('Counts')\n",
+					"plt.suptitle('')\n",
+					"plt.show()\n",
+					"\n",
+					"# How many passengers tip'd by various amounts\n",
+					"ax2 = sampled_taxi_pd_df.boxplot(column=['tipAmount'], by=['passengerCount'])\n",
+					"ax2.set_title('Tip amount by Passenger count')\n",
+					"ax2.set_xlabel('Passenger count') \n",
+					"ax2.set_ylabel('Tip Amount ($)')\n",
+					"plt.suptitle('')\n",
+					"plt.show()\n",
+					"\n",
+					"# Look at the relationship between fare and tip amounts\n",
+					"ax = sampled_taxi_pd_df.plot(kind='scatter', x= 'fareAmount', y = 'tipAmount', c='blue', alpha = 0.10, s=2.5*(sampled_taxi_pd_df['passengerCount']))\n",
+					"ax.set_title('Tip amount by Fare amount')\n",
+					"ax.set_xlabel('Fare Amount ($)')\n",
+					"ax.set_ylabel('Tip Amount ($)')\n",
+					"plt.axis([-2, 80, -2, 20])\n",
+					"plt.suptitle('')\n",
+					"plt.show()"
+				],
+				"execution_count": 4
+			},
+			{
+				"cell_type": "markdown",
+				"source": [
+					"## Data Prep and Featurization\n",
+					"\n",
+					"It's clear from the visualizations above that there are a bunch of outliers in the data. These will need to be filtered out in addition there are extra variables that are not going to be useful in the model we build at the end.\n",
+					"\n",
+					"Finally there is a need to create some new (derived) variables that will work better with the model.\n",
+					""
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"taxi_df = sampled_taxi_df.select('totalAmount', 'fareAmount', 'tipAmount', 'paymentType', 'rateCodeId', 'passengerCount'\\\n",
+					"                                , 'tripDistance', 'tpepPickupDateTime', 'tpepDropoffDateTime'\\\n",
+					"                                , date_format('tpepPickupDateTime', 'hh').alias('pickupHour')\\\n",
+					"                                , date_format('tpepPickupDateTime', 'EEEE').alias('weekdayString')\\\n",
+					"                                , (unix_timestamp(col('tpepDropoffDateTime')) - unix_timestamp(col('tpepPickupDateTime'))).alias('tripTimeSecs')\\\n",
+					"                                , (when(col('tipAmount') > 0, 1).otherwise(0)).alias('tipped')\n",
+					"                                )\\\n",
+					"                        .filter((sampled_taxi_df.passengerCount > 0) & (sampled_taxi_df.passengerCount < 8)\\\n",
+					"                                & (sampled_taxi_df.tipAmount >= 0) & (sampled_taxi_df.tipAmount <= 25)\\\n",
+					"                                & (sampled_taxi_df.fareAmount >= 1) & (sampled_taxi_df.fareAmount <= 250)\\\n",
+					"                                & (sampled_taxi_df.tipAmount < sampled_taxi_df.fareAmount)\\\n",
+					"                                & (sampled_taxi_df.tripDistance > 0) & (sampled_taxi_df.tripDistance <= 100)\\\n",
+					"                                & (sampled_taxi_df.rateCodeId <= 5)\n",
+					"                                & (sampled_taxi_df.paymentType.isin({\"1\", \"2\"}))\n",
+					"                                )"
+				],
+				"execution_count": 5
+			},
+			{
+				"cell_type": "markdown",
+				"source": [
+					"## Data Prep and Featurization Part 2\n",
+					"\n",
+					"Having created new variables its now possible to drop the columns they were derived from so that the dataframe that goes into the model is the smallest in terms of number of variables, that is required.\n",
+					"\n",
+					"Also create some more features based on new columns from the first round.\n",
+					""
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"taxi_featurised_df = taxi_df.select('totalAmount', 'fareAmount', 'tipAmount', 'paymentType', 'passengerCount'\\\n",
+					"                                                , 'tripDistance', 'weekdayString', 'pickupHour','tripTimeSecs','tipped'\\\n",
+					"                                                , when((taxi_df.pickupHour <= 6) | (taxi_df.pickupHour >= 20),\"Night\")\\\n",
+					"                                                .when((taxi_df.pickupHour >= 7) & (taxi_df.pickupHour <= 10), \"AMRush\")\\\n",
+					"                                                .when((taxi_df.pickupHour >= 11) & (taxi_df.pickupHour <= 15), \"Afternoon\")\\\n",
+					"                                                .when((taxi_df.pickupHour >= 16) & (taxi_df.pickupHour <= 19), \"PMRush\")\\\n",
+					"                                                .otherwise(0).alias('trafficTimeBins')\n",
+					"                                              )\\\n",
+					"                                       .filter((taxi_df.tripTimeSecs >= 30) & (taxi_df.tripTimeSecs <= 7200))"
+				],
+				"execution_count": 6
+			},
+			{
+				"cell_type": "markdown",
+				"source": [
+					"## Encoding\n",
+					"\n",
+					"Different ML algorithms support different types of input, for this example Logistic Regression is being used for Binary Classification. This means that any Categorical (string) variables must be converted to numbers.\n",
+					"\n",
+					"The process is not as simple as a \"map\" style function as the relationship between the numbers can introduce a bias in the resulting model, the approach is to index the variable and then encode using a std approach called One Hot Encoding.\n",
+					"\n",
+					"This approach requires the encoder to \"learn\"/fit a model over the data in the Spark instance and then transform based on what was learnt.\n",
+					""
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"# The sample uses an algorithm that only works with numeric features convert them so they can be consumed\n",
+					"sI1 = StringIndexer(inputCol=\"trafficTimeBins\", outputCol=\"trafficTimeBinsIndex\"); \n",
+					"en1 = OneHotEncoder(dropLast=False, inputCol=\"trafficTimeBinsIndex\", outputCol=\"trafficTimeBinsVec\");\n",
+					"sI2 = StringIndexer(inputCol=\"weekdayString\", outputCol=\"weekdayIndex\"); \n",
+					"en2 = OneHotEncoder(dropLast=False, inputCol=\"weekdayIndex\", outputCol=\"weekdayVec\");\n",
+					"\n",
+					"# Create a new dataframe that has had the encodings applied\n",
+					"encoded_final_df = Pipeline(stages=[sI1, en1, sI2, en2]).fit(taxi_featurised_df).transform(taxi_featurised_df)"
+				],
+				"execution_count": 7
+			},
+			{
+				"cell_type": "markdown",
+				"source": [
+					"## Generation of Testing and Training Data Sets\n",
+					"Simple split, 70% for training and 30% for testing the model. Playing with this ratio may result in different models.\n",
+					""
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"# Decide on the split between training and testing data from the dataframe \n",
+					"trainingFraction = 0.7\n",
+					"testingFraction = (1-trainingFraction)\n",
+					"seed = 1234\n",
+					"\n",
+					"# Split the dataframe into test and training dataframes\n",
+					"train_data_df, test_data_df = encoded_final_df.randomSplit([trainingFraction, testingFraction], seed=seed)"
+				],
+				"execution_count": 8
+			},
+			{
+				"cell_type": "markdown",
+				"source": [
+					"## Train the Model\n",
+					"\n",
+					"Train the Logistic Regression model and then evaluate it using Area under ROC as the metric."
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"## Create a new LR object for the model\n",
+					"logReg = LogisticRegression(maxIter=10, regParam=0.3, labelCol = 'tipped')\n",
+					"\n",
+					"## The formula for the model\n",
+					"classFormula = RFormula(formula=\"tipped ~ pickupHour + weekdayVec + passengerCount + tripTimeSecs + tripDistance + fareAmount + paymentType+ trafficTimeBinsVec\")\n",
+					"\n",
+					"## Undertake training and create an LR model\n",
+					"lrModel = Pipeline(stages=[classFormula, logReg]).fit(train_data_df)\n",
+					"\n",
+					"## Saving the model is optional but its another for of inter session cache\n",
+					"datestamp = datetime.now().strftime('%m-%d-%Y-%s');\n",
+					"fileName = \"lrModel_\" + datestamp;\n",
+					"logRegDirfilename = fileName;\n",
+					"lrModel.save(logRegDirfilename)\n",
+					"\n",
+					"## Predict tip 1/0 (yes/no) on the test dataset, evaluation using AUROC\n",
+					"predictions = lrModel.transform(test_data_df)\n",
+					"predictionAndLabels = predictions.select(\"label\",\"prediction\").rdd\n",
+					"metrics = BinaryClassificationMetrics(predictionAndLabels)\n",
+					"print(\"Area under ROC = %s\" % metrics.areaUnderROC)"
+				],
+				"execution_count": 10
+			},
+			{
+				"cell_type": "markdown",
+				"source": [
+					"## Evaluate and Visualize\n",
+					"\n",
+					"Plot the actual curve to develop a better understanding of the model.\n",
+					""
+				]
+			},
+			{
+				"cell_type": "code",
+				"source": [
+					"## Plot the ROC curve, no need for pandas as this uses the modelSummary object\n",
+					"modelSummary = lrModel.stages[-1].summary\n",
+					"\n",
+					"plt.plot([0, 1], [0, 1], 'r--')\n",
+					"plt.plot(modelSummary.roc.select('FPR').collect(),\n",
+					"         modelSummary.roc.select('TPR').collect())\n",
+					"plt.xlabel('False Positive Rate')\n",
+					"plt.ylabel('True Positive Rate')\n",
+					"plt.show()"
+				],
+				"execution_count": null
+			}
+		]
+	}
+}
