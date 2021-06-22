@@ -36,36 +36,35 @@ Owner role (otherwise Contributor + User Access Administrator roles) for the Azu
 
 ## Deployment
 
-- Fork out [this github repository](https://github.com/Azure/azure-synapse-consumption-play) into your github account.
+1. Fork out [this github repository](https://github.com/Azure/azure-synapse-consumption-play) into your github account.
 
-![Fork](https://raw.githubusercontent.com/Azure/azure-synapse-consumption-play/main/images/4.gif)
+   ![Fork](https://raw.githubusercontent.com/Azure/azure-synapse-consumption-play/main/images/4.gif)
  
-- Click 'Deploy To Azure' button given below to deploy all the resources. 
+2. Click 'Deploy To Azure' button given below to deploy all the resources. 
 
-  [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-synapse-consumption-play%2Fmain%2Fazuredeploy.json)
+    [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-synapse-consumption-play%2Fmain%2Fazuredeploy.json)
 
-- Provide the values for:
+   - Provide the values for:
 
-   - Resource group (create new)
-   - Region
-   - Company Tla
-   - Option (true or false) for Allow All Connections
-   - Option (true or false) for Spark Deployment
-   - Spark Node Size (Small, Medium, large) if Spark Deployment is set to true
-   - Sql Administrator Login
-   - Sql Administrator Login Password
-   - Sku
-   - Option (true or false) for Metadata Sync
-   - Frequency
-   - Time Zone
-   - Resume Time
-   - Pause Time
-   - Option (Enabled or Disabled) for Transparent Data Encryption
-   - Github Username (username for the account where [this github repository](https://github.com/Azure/azure-synapse-consumption-play) was forked out into)
+     - Resource group (create new)
+     - Region
+     - Company Tla
+     - Option (true or false) for Allow All Connections
+     - Option (true or false) for Spark Deployment
+     - Spark Node Size (Small, Medium, large) if Spark Deployment is set to true
+     - Sql Administrator Login
+     - Sql Administrator Login Password
+     - Sku
+     - Option (true or false) for Metadata Sync
+     - Frequency
+     - Time Zone
+     - Resume Time
+     - Pause Time
+     - Option (Enabled or Disabled) for Transparent Data Encryption
+     - Github Username (username for the account where [this github repository](https://github.com/Azure/azure-synapse-consumption-play) was forked out into)
 
-- Click 'Review + Create'.
-
-- On successfull validation, click 'Create'.
+   - Click 'Review + Create'.
+   - On successfull validation, click 'Create'.
 
 ## Post Deployment
 - Current Azure user needs to have "Storage Blob Data Contributor" role access to recently created Azure Data Lake Storage Gen2 account to avoid 403 type permission errors.
