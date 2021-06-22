@@ -91,3 +91,9 @@ Owner role (otherwise Contributor + User Access Administrator roles) for the Azu
 - Click 'Ok'.
 
 ![PostDeployment-3](https://raw.githubusercontent.com/Azure/azure-synapse-consumption-play/main/images/3.gif)
+
+- Now to trigger the pipeline, click 'Add trigger' at the top panel and click 'Trigger now'.
+- Confirm the pipeline parameters' values and click 'Ok'.
+- You can check the pipeline status under 'Pipeline runs' in the 'Monitor' tab on the left panel.
+
+![PostDeployment-4](https://raw.githubusercontent.com/Azure/azure-synapse-consumption-play/main/images/5.gif)
