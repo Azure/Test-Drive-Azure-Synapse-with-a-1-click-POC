@@ -7,11 +7,9 @@ Owner role (or Contributor roles) for the Azure Subscription the template being 
 
 ## Deployment Steps
 1. Fork out [this github repository](https://github.com/Azure/azure-synapse-consumption-play) into your github account. 
-   Forking it  allows you to freely experiment with changes without affecting the original project. ***If you don't fork the repo you will get following error:
+    
+   ___If you don't fork the repo (i) the pre-populated dataset, pipeline and notebook will not be deployed and (ii) you will get a publishing error___
    
-   ![image](https://user-images.githubusercontent.com/17091268/123176862-db302a00-d449-11eb-89aa-b87486ddf775.png)
-
-
    
   <!--  ![Fork](https://raw.githubusercontent.com/Azure/azure-synapse-consumption-play/main/images/4.gif) -->
  
