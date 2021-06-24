@@ -1,5 +1,5 @@
 ## Azure Synapse 1-click POC environment with pre-populated dataset, pipeline, notebook
-This 1-click deployment allows the user to deploy a Proof-of-Concept environment of Azure Synapse Analytics with dataset (New York Taxi Trips & Fares data), pipeline (ingest, merge, aggregate), 	notebook (Spark ML prediction)
+This 1-click deployment allows the user to deploy a Proof-of-Concept environment of Azure Synapse Analytics with dataset (New York Taxi Trips & Fares data), pipeline to (ingest, merge, aggregate), 	notebook (Spark ML prediction)
 
 ## Prerequisites
 
