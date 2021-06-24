@@ -55,7 +55,7 @@
 					"# Predict NYC Taxi Tips using Spark ML and Azure Open Datasets\n",
 					"\n",
 					"The notebook ingests, visualizes, prepares and then trains a model based on an Open Dataset that tracks NYC Yellow Taxi trips and various attributes around them.\n",
-					"The goal is to predict for a given trip whether there will be a trip or not.\n",
+					"The goal is to predict for a given trip whether there will be a tip or not.\n",
 					"\n",
 					" https://docs.microsoft.com/en-us/azure/synapse-analytics/spark/apache-spark-machine-learning-mllib-notebook\n",
 					""

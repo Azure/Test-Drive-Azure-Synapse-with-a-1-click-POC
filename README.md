@@ -1,46 +1,21 @@
-# Azure Synapse Proof-of-Concept
-
-![Synapse Analytics](https://raw.githubusercontent.com/Azure/azure-synapse-consumption-play/main/images/synapse1.png)
-
-## Table Of Contents
-
-1. Introduction
-2. Purpose
-3. Prerequisites
-4. Deployment
-5. Post Deployment
-
-## Introduction
-
-This template deploys necessary resources to run an Azure Synapse Proof-of-Concept. 
-Following resources are deployed with this template along with some RBAC role assignments:
-
-- An Azure Synapse Workspace with batch data pipeline and other required resources
-- An Azure Synapse SQL Pool
-- An optional Apache Spark Pool
-- Azure Data Lake Storage Gen2 account
-- A new File System inside the Storage Account to be used by Azure Synapse
-- A Logic App to Pause the SQL Pool at defined schedule
-- A Logic App to Resume the SQL Pool at defined schedule
-- A key vault to store the secrets
-
-The data pipeline inside the Synapse Workspace gets Newyork Taxi trip and fare data, joins them and perform aggregations on them to give the final aggregated results. Other resources include datasets, linked services and dataflows. All resources are completely parameterized and all the secrets are stored in the key vault. These secrets are fetched inside the linked services using key vault linked service. The Logic App will check for Active Queries. If there are active queries, it will wait 5 minutes and check again until there are none before pausing
-
-## Purpose
-
-This template allows the Administrator to deploy a Proof-of-Concept environment of Azure Synapse Analytics with some pre-set parameters. This allows more time to focus on the Proof-of-Concept at hand and test the service.
+## Azure Synapse 1-click POC environment with pre-populated dataset, pipeline, notebook
+This 1-click deployment allows the user to deploy a Proof-of-Concept environment of Azure Synapse Analytics with dataset (New York Taxi Trips & Fares data), pipeline (ingest, merge, aggregate), 	notebook (Spark ML prediction)
 
 ## Prerequisites
 
-Owner role (otherwise Contributor + User Access Administrator roles) for the Azure Subscription the template being deployed in. This is for creation of a separate Proof-of-Concept Resource Group and to delegate roles necessary for this proof of concept. Refer to this [official documentation](https://docs.microsoft.com/en-us/azure/role-based-access-control/role-assignments-steps) for RBAC role-assignments.
+Owner role (or Contributor roles) for the Azure Subscription the template being deployed in. This is for creation of a separate Proof-of-Concept Resource Group and to delegate roles necessary for this proof of concept. Refer to this [official documentation](https://docs.microsoft.com/en-us/azure/role-based-access-control/role-assignments-steps) for RBAC role-assignments.
 
-## Deployment
-
-1. Fork out [this github repository](https://github.com/Azure/azure-synapse-consumption-play) into your github account.
-
-   ![Fork](https://raw.githubusercontent.com/Azure/azure-synapse-consumption-play/main/images/4.gif)
+## Deployment Steps
+1. Fork out [this github repository](https://github.com/Azure/azure-synapse-consumption-play) into your github account. 
+    
+   **If you don't fork repo:** 
+   + **the pre-populated dataset, pipeline and notebook will not be deployed**
+   + **you will get a Github publishing error**
+   
+   
+  <!--  ![Fork](https://raw.githubusercontent.com/Azure/azure-synapse-consumption-play/main/images/4.gif) -->
  
-2. Click 'Deploy To Azure' button given below to deploy all the resources. 
+2. Click 'Deploy To Azure' button given below to deploy all the resources.
 
     [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2Fazure-synapse-consumption-play%2Fmain%2Fazuredeploy.json)
 
@@ -65,6 +40,21 @@ Owner role (otherwise Contributor + User Access Administrator roles) for the Azu
 
    - Click 'Review + Create'.
    - On successfull validation, click 'Create'.
+
+## Azure Services being deployed
+This template deploys necessary resources to run an Azure Synapse Proof-of-Concept. 
+Following resources are deployed with this template along with some RBAC role assignments:
+
+- An Azure Synapse Workspace with sample data pipeline, sample spark notebook
+- An Azure Synapse SQL Pool
+- An optional Apache Spark Pool
+- Azure Data Lake Storage Gen2 account
+- A new File System inside the Storage Account to be used by Azure Synapse
+- A Logic App to Pause the SQL Pool at defined schedule
+- A Logic App to Resume the SQL Pool at defined schedule
+- A key vault to store the secrets
+
+The data pipeline inside the Synapse Workspace gets New York Taxi trip and fare data, joins them and perform aggregations on them to give the final aggregated results. Other resources include datasets, linked services and dataflows. All resources are completely parameterized and all the secrets are stored in the key vault. These secrets are fetched inside the linked services using key vault linked service. The Logic App will check for Active Queries. If there are active queries, it will wait 5 minutes and check again until there are none before pausing
 
 ## Post Deployment
 - Current Azure user needs to have "Storage Blob Data Contributor" role access to recently created Azure Data Lake Storage Gen2 account to avoid 403 type permission errors.
