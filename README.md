@@ -10,7 +10,7 @@ Owner role (or Contributor roles) for the Azure Subscription the template being 
     
    **If you don't fork repo:** 
    + **the pre-populated dataset, pipeline and notebook will not be deployed**
-   + **you will get a Github publishing error**
+   + **you will get a Github publishing error **
    
    
   <!--  ![Fork](https://raw.githubusercontent.com/Azure/azure-synapse-consumption-play/main/images/4.gif) -->
