@@ -70,8 +70,12 @@ Following resources are deployed with this template along with some RBAC role as
 
 - Now open the pipeline named 'TripFaresDataPipeline'.
 - Click on 'Parameters' tab at bottom of the window.
-- Update the parameters' values. You can copy the resources' names from the resource group recently deployed.
-- Make sure the SQL login username is correct and the workspace name is fully qualified domain name, i.e. workspaceName.database.windows.net
+- Update the following parameter values. ___(You can copy the resource names from the resource group recently deployed.)___
+    - SynapseWorkspaceName  (Make sure workspace name is fully qualified domain name, i.e. workspaceName.database.windows.net)
+    - SQLDedicatedPoolName
+    - SQLLoginUsername
+    - KeyVaultName
+    - DatalakeAccountName
 
 ![PostDeployment-2](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/2.gif)
 
