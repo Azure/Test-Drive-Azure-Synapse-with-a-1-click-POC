@@ -1,0 +1,15 @@
+{
+	"name": "SqlPoolTableFaresData",
+	"properties": {
+		"annotations": [],
+		"type": "SqlPoolTable",
+		"schema": [],
+		"typeProperties": {
+			"table": "FaresData"
+		},
+		"sqlPool": {
+			"referenceName": "aaarhdnjgyl67a2cpocws1p1",
+			"type": "SqlPoolReference"
+		}
+	}
+}
