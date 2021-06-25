@@ -81,19 +81,19 @@ The data pipeline inside the Synapse Workspace gets New York Taxi trip and fare 
 
 ![PostDeployment-3](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/3.gif)
 
-- Once published all the resources will now be available in the live mode.
-- To switch to the live mode from git mode, click the drop down at top left corner and select 'Switch to live mode'.
-
-![PostDeployment-4](https://raw.githubusercontent.com/osamaemumba/101-synapse-poc/main/images/liveMode.PNG)
-
 - Now to trigger the pipeline, click 'Add trigger' at the top panel and click 'Trigger now'.
 - Confirm the pipeline parameters' values and click 'Ok'.
 - You can check the pipeline status under 'Pipeline runs' in the 'Monitor' tab on the left panel.
 
-![PostDeployment-5](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/5.gif)
+![PostDeployment-4](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/5.gif)
 
 - To run the notebook (if spark pool is deployed), click on 'Develop' tab on the left panel.
 - Now under 'Notebooks' dropdown on left side of screen, click the notebook named 'Data Exploration and ML Modeling - NYC taxi predict using Spark MLlib'.
 - Click 'Run all' to run the notebook. (It might take a few minutes to start the session)
 
-![PostDeployment-6](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/6.gif)
+![PostDeployment-5](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/6.gif)
+
+- Once published all the resources will now be available in the live mode.
+- To switch to the live mode from git mode, click the drop down at top left corner and select 'Switch to live mode'.
+
+![PostDeployment-6](https://raw.githubusercontent.com/osamaemumba/101-synapse-poc/main/images/liveMode.PNG)
