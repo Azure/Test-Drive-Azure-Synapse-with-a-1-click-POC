@@ -1,9 +1,0 @@
-{
-	"name": "TripDataPipeline",
-	"properties": {
-		"folder": {
-			"name": "TripFaresDataPipeline"
-		},
-		"annotations": []
-	}
-}
