@@ -436,7 +436,7 @@
           "type": "WorkspaceGitHubConfiguration",
           "hostName": "https://github.com",
           "accountName": "[parameters('githubUsername')]",
-          "repositoryName": "azure-synapse-consumption-play",
+          "repositoryName": "Test-Drive-Azure-Synapse-with-a-1-click-POC",
           "rootFolder": "/synapsepoc",
           "collaborationBranch": "main"
         }
