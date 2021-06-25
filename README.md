@@ -39,7 +39,7 @@ Owner role (or Contributor roles) for the Azure Subscription the template being 
      - Github Username (username for the account where [this github repository](https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC) was forked out into)
 
    - Click 'Review + Create'.
-   - On successfull validation, click 'Create'.
+   - On successful validation, click 'Create'.
 
 ## Azure Services being deployed
 This template deploys necessary resources to run an Azure Synapse Proof-of-Concept. 
