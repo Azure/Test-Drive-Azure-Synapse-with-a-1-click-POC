@@ -45,7 +45,7 @@ Owner role (or Contributor roles) for the Azure Subscription the template being 
 This template deploys necessary resources to run an Azure Synapse Proof-of-Concept. 
 Following resources are deployed with this template along with some RBAC role assignments:
 
-- An Azure Synapse Workspace with sample data pipeline, sample spark notebook
+- An Azure Synapse Workspace 
 - An Azure Synapse SQL Pool
 - An optional Apache Spark Pool
 - Azure Data Lake Storage Gen2 account
