@@ -96,4 +96,4 @@ The data pipeline inside the Synapse Workspace gets New York Taxi trip and fare 
 - Once published all the resources will now be available in the live mode.
 - To switch to the live mode from git mode, click the drop down at top left corner and select 'Switch to live mode'.
 
-![PostDeployment-6](https://raw.githubusercontent.com/osamaemumba/101-synapse-poc/main/images/liveMode.PNG)
+![PostDeployment-6](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/liveMode.PNG)
