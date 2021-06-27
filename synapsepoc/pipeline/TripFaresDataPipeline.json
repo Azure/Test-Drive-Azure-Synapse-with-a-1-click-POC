@@ -306,14 +306,13 @@
 						}
 					},
 					"sink": {
-						"type": "SqlPoolSink",
+						"type": "SqlDWSink",
 						"allowPolyBase": true,
 						"polyBaseSettings": {
 							"rejectValue": 0,
 							"rejectType": "value",
 							"useTypeDefault": true
-						},
-						"tableOption": "autoCreate"
+						}
 					},
 					"enableStaging": true,
 					"stagingSettings": {
@@ -341,8 +340,26 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SqlPoolTableTripsData",
-						"type": "DatasetReference"
+						"referenceName": "AzureSynapseAnalyticsTripsData",
+						"type": "DatasetReference",
+						"parameters": {
+							"SynapseWorkspaceName": {
+								"value": "@pipeline().parameters.SynapseWorkspaceName",
+								"type": "Expression"
+							},
+							"SQLDedicatedPoolName": {
+								"value": "@pipeline().parameters.SQLDedicatedPoolName",
+								"type": "Expression"
+							},
+							"keyVaultName": {
+								"value": "@pipeline().parameters.KeyVaultName",
+								"type": "Expression"
+							},
+							"SQLLoginUsername": {
+								"value": "@pipeline().parameters.SQLLoginUsername",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
@@ -377,14 +394,13 @@
 						}
 					},
 					"sink": {
-						"type": "SqlPoolSink",
+						"type": "SqlDWSink",
 						"allowPolyBase": true,
 						"polyBaseSettings": {
 							"rejectValue": 0,
 							"rejectType": "value",
 							"useTypeDefault": true
-						},
-						"tableOption": "autoCreate"
+						}
 					},
 					"enableStaging": true,
 					"stagingSettings": {
@@ -412,8 +428,26 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "SqlPoolTableFaresData",
-						"type": "DatasetReference"
+						"referenceName": "AzureSynapseAnalyticsFaresData",
+						"type": "DatasetReference",
+						"parameters": {
+							"SynapseWorkspaceName": {
+								"value": "@pipeline().parameters.SynapseWorkspaceName",
+								"type": "Expression"
+							},
+							"SQLDedicatedPoolName": {
+								"value": "@pipeline().parameters.SQLDedicatedPoolName",
+								"type": "Expression"
+							},
+							"keyVaultName": {
+								"value": "@pipeline().parameters.KeyVaultName",
+								"type": "Expression"
+							},
+							"SQLLoginUsername": {
+								"value": "@pipeline().parameters.SQLLoginUsername",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
