@@ -39,6 +39,9 @@
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
-		"schema": []
+		"schema": [],
+		"typeProperties": {
+			"table": "FaresData"
+		}
 	}
 }
