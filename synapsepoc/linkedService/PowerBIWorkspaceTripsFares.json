@@ -1,10 +1,15 @@
 {
 	"name": "PowerBIWorkspaceTripsFares",
 	"properties": {
+		"parameters": {
+			"workspaceID": {
+			"type": "string"
+			}			
+		},
 		"annotations": [],
 		"type": "PowerBIWorkspace",
 		"typeProperties": {
-			"workspaceID": "03b3a05d-c3b8-43fe-8966-a685ece71467",
+			"workspaceID": "@linkedService().keyVaultName",
 			"tenantID": "72f988bf-86f1-41af-91ab-2d7cd011db47"
 		}
 	}
