@@ -480,10 +480,6 @@
 			"datalakeAccountName": {
 				"type": "string",
 				"defaultValue": "<datalake-account-name>"
-			},
-			"workspaceID": {
-				"type": "string",
-				"defaultValue": "03b3a05d-c3b8-43fe-8966-a685ece71467"
 			}
 		},
 		"folder": {
