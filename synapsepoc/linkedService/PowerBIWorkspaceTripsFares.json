@@ -3,13 +3,13 @@
 	"properties": {
 		"parameters": {
 			"workspaceID": {
-			"type": "string"
-			}			
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "PowerBIWorkspace",
 		"typeProperties": {
-			"workspaceID": "@linkedService().keyVaultName",
+			"workspaceID": "",
 			"tenantID": "72f988bf-86f1-41af-91ab-2d7cd011db47"
 		}
 	}
