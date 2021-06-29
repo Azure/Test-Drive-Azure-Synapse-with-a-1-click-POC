@@ -4,6 +4,9 @@
 		"parameters": {
 			"workspaceID": {
 				"type": "string"
+			},
+			"datalakeAccountName": {
+				"type": "string"
 			}
 		},
 		"annotations": [],
