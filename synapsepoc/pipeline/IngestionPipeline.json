@@ -328,11 +328,6 @@
 						"type": "TabularTranslator",
 						"mappings": [
 							{
-								"sink": {
-									"path": "$['FareID']"
-								}
-							},
-							{
 								"source": {
 									"name": "medallion",
 									"type": "String"
@@ -429,36 +424,6 @@
 								},
 								"sink": {
 									"path": "$['total_amount']"
-								}
-							},
-							{
-								"sink": {
-									"path": "$['id']"
-								}
-							},
-							{
-								"sink": {
-									"path": "$['_rid']"
-								}
-							},
-							{
-								"sink": {
-									"path": "$['_self']"
-								}
-							},
-							{
-								"sink": {
-									"path": "$['_etag']"
-								}
-							},
-							{
-								"sink": {
-									"path": "$['_attachments']"
-								}
-							},
-							{
-								"sink": {
-									"path": "$['_ts']"
 								}
 							}
 						]
