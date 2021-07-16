@@ -2,7 +2,7 @@
 	"name": "faresFileSource",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "HttpServerTripFareDataLinkedService",
+			"referenceName": "TripFaresDataLakeStorageLinkedService",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
@@ -12,7 +12,10 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "HttpServerLocation"
+				"type": "AzureBlobFSLocation",
+				"fileName": "trip-data.csv",
+				"folderPath": "raw-data",
+				"fileSystem": "public"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
