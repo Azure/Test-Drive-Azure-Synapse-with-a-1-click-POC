@@ -47,7 +47,7 @@
 					"type": "number"
 				},
 				"surcharge": {
-					"type": "integer"
+					"type": "number"
 				},
 				"mta_tax": {
 					"type": "number"
