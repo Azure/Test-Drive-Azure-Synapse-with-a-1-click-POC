@@ -76,7 +76,14 @@
 			{
 				"name": "Ingest data from NoSQL",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Load data from Cosmos DB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -286,6 +293,187 @@
 								"type": "Expression"
 							}
 						}
+					}
+				]
+			},
+			{
+				"name": "Load data from Cosmos DB",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "CosmosDbSqlApiSink",
+						"writeBehavior": "insert"
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"sink": {
+									"path": "$['FareID']"
+								}
+							},
+							{
+								"source": {
+									"name": "medallion",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['medallion']"
+								}
+							},
+							{
+								"source": {
+									"name": "hack_license",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['hack_license']"
+								}
+							},
+							{
+								"source": {
+									"name": "vendor_id",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['vendor_id']"
+								}
+							},
+							{
+								"source": {
+									"name": "pickup_datetime",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['pickup_datetime']"
+								}
+							},
+							{
+								"source": {
+									"name": "payment_type",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['payment_type']"
+								}
+							},
+							{
+								"source": {
+									"name": "fare_amount",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['fare_amount']"
+								}
+							},
+							{
+								"source": {
+									"name": "surcharge",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['surcharge']"
+								}
+							},
+							{
+								"source": {
+									"name": "mta_tax",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['mta_tax']"
+								}
+							},
+							{
+								"source": {
+									"name": "tip_amount",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['tip_amount']"
+								}
+							},
+							{
+								"source": {
+									"name": "tolls_amount",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['tolls_amount']"
+								}
+							},
+							{
+								"source": {
+									"name": "total_amount",
+									"type": "String"
+								},
+								"sink": {
+									"path": "$['total_amount']"
+								}
+							},
+							{
+								"sink": {
+									"path": "$['id']"
+								}
+							},
+							{
+								"sink": {
+									"path": "$['_rid']"
+								}
+							},
+							{
+								"sink": {
+									"path": "$['_self']"
+								}
+							},
+							{
+								"sink": {
+									"path": "$['_etag']"
+								}
+							},
+							{
+								"sink": {
+									"path": "$['_attachments']"
+								}
+							},
+							{
+								"sink": {
+									"path": "$['_ts']"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "faresDataSource",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "CosmosDbSqlApiCollection",
+						"type": "DatasetReference"
 					}
 				]
 			}
