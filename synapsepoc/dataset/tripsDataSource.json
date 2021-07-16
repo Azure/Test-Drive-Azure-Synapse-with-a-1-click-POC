@@ -2,8 +2,12 @@
 	"name": "tripsDataSource",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "HttpServerTripDataLinkedService",
-			"type": "LinkedServiceReference"
+			"referenceName": "TripFaresDataLakeStorageLinkedService",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"keyVaultName": "kvdemomukdgps4msibmpoc",
+				"datalakeAccountName": "demomukdgps4msibmpoc"
+			}
 		},
 		"folder": {
 			"name": "TripFareDatasets"
@@ -12,7 +16,10 @@
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
-				"type": "HttpServerLocation"
+				"type": "AzureBlobFSLocation",
+				"fileName": "trip-data.csv",
+				"folderPath": "analytics-data",
+				"fileSystem": "public"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
