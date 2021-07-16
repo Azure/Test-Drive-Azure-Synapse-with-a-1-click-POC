@@ -32,6 +32,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"fileName": "trip-data.csv",
+				"folderPath": "analytics-data",
 				"fileSystem": "public"
 			},
 			"columnDelimiter": ",",
