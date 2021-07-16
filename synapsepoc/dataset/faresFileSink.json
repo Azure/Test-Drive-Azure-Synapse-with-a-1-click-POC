@@ -17,12 +17,10 @@
 		},
 		"parameters": {
 			"keyVaultName": {
-				"type": "string",
-				"defaultValue": "kvmsft"
+				"type": "string"
 			},
 			"datalakeAccountName": {
-				"type": "string",
-				"defaultValue": "adlsmsft"
+				"type": "string"
 			}
 		},
 		"folder": {
