@@ -3,7 +3,11 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "TripFaresDataLakeStorageLinkedService",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"keyVaultName": "kvdemomukdgps4msibmpoc",
+				"datalakeAccountName": "demomukdgps4msibmpoc"
+			}
 		},
 		"folder": {
 			"name": "TripFareDatasets"
