@@ -10,9 +10,6 @@
 		"schema": {
 			"type": "object",
 			"properties": {
-				"FareID": {
-					"type": "integer"
-				},
 				"medallion": {
 					"type": "string"
 				},
@@ -32,7 +29,7 @@
 					"type": "number"
 				},
 				"surcharge": {
-					"type": "integer"
+					"type": "number"
 				},
 				"mta_tax": {
 					"type": "number"
