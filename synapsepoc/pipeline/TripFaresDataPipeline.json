@@ -283,7 +283,7 @@
 			},
 			"SynapseWorkspaceName": {
 				"type": "string",
-				"defaultValue": "demomukdgps4msibmpocws1"
+				"defaultValue": "demomukdgps4msibmpocws1.workspaceName.database.windows.net"
 			},
 			"SQLDedicatedPoolName": {
 				"type": "string",
