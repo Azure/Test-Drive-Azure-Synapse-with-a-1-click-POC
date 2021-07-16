@@ -334,8 +334,15 @@
 						"mappings": [
 							{
 								"source": {
-									"name": "medallion",
-									"type": "String"
+									"path": "$['FareID']"
+								},
+								"sink": {
+									"path": "$['FareID']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['medallion']"
 								},
 								"sink": {
 									"path": "$['medallion']"
@@ -343,8 +350,7 @@
 							},
 							{
 								"source": {
-									"name": "hack_license",
-									"type": "String"
+									"path": "$['hack_license']"
 								},
 								"sink": {
 									"path": "$['hack_license']"
@@ -352,8 +358,7 @@
 							},
 							{
 								"source": {
-									"name": "vendor_id",
-									"type": "String"
+									"path": "$['vendor_id']"
 								},
 								"sink": {
 									"path": "$['vendor_id']"
@@ -361,8 +366,7 @@
 							},
 							{
 								"source": {
-									"name": "pickup_datetime",
-									"type": "String"
+									"path": "$['pickup_datetime']"
 								},
 								"sink": {
 									"path": "$['pickup_datetime']"
@@ -370,8 +374,7 @@
 							},
 							{
 								"source": {
-									"name": "payment_type",
-									"type": "String"
+									"path": "$['payment_type']"
 								},
 								"sink": {
 									"path": "$['payment_type']"
@@ -379,8 +382,7 @@
 							},
 							{
 								"source": {
-									"name": "fare_amount",
-									"type": "String"
+									"path": "$['fare_amount']"
 								},
 								"sink": {
 									"path": "$['fare_amount']"
@@ -388,8 +390,7 @@
 							},
 							{
 								"source": {
-									"name": "surcharge",
-									"type": "String"
+									"path": "$['surcharge']"
 								},
 								"sink": {
 									"path": "$['surcharge']"
@@ -397,8 +398,7 @@
 							},
 							{
 								"source": {
-									"name": "mta_tax",
-									"type": "String"
+									"path": "$['mta_tax']"
 								},
 								"sink": {
 									"path": "$['mta_tax']"
@@ -406,8 +406,7 @@
 							},
 							{
 								"source": {
-									"name": "tip_amount",
-									"type": "String"
+									"path": "$['tip_amount']"
 								},
 								"sink": {
 									"path": "$['tip_amount']"
@@ -415,8 +414,7 @@
 							},
 							{
 								"source": {
-									"name": "tolls_amount",
-									"type": "String"
+									"path": "$['tolls_amount']"
 								},
 								"sink": {
 									"path": "$['tolls_amount']"
@@ -424,8 +422,7 @@
 							},
 							{
 								"source": {
-									"name": "total_amount",
-									"type": "String"
+									"path": "$['total_amount']"
 								},
 								"sink": {
 									"path": "$['total_amount']"
