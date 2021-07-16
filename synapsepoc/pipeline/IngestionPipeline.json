@@ -118,7 +118,8 @@
 									"path": "$['medallion']"
 								},
 								"sink": {
-									"name": "medallion"
+									"name": "medallion",
+									"type": "String"
 								}
 							},
 							{
@@ -126,7 +127,8 @@
 									"path": "$['hack_license']"
 								},
 								"sink": {
-									"name": "hack_license"
+									"name": "hack_license",
+									"type": "String"
 								}
 							},
 							{
@@ -134,7 +136,8 @@
 									"path": "$['vendor_id']"
 								},
 								"sink": {
-									"name": "vendor_id"
+									"name": "vendor_id",
+									"type": "String"
 								}
 							},
 							{
@@ -142,7 +145,8 @@
 									"path": "$['pickup_datetime']"
 								},
 								"sink": {
-									"name": "pickup_datetime"
+									"name": "pickup_datetime",
+									"type": "DateTime"
 								}
 							},
 							{
@@ -150,7 +154,8 @@
 									"path": "$['payment_type']"
 								},
 								"sink": {
-									"name": "payment_type"
+									"name": "payment_type",
+									"type": "String"
 								}
 							},
 							{
@@ -158,7 +163,8 @@
 									"path": "$['fare_amount']"
 								},
 								"sink": {
-									"name": "fare_amount"
+									"name": "fare_amount",
+									"type": "Double"
 								}
 							},
 							{
@@ -166,7 +172,8 @@
 									"path": "$['mta_tax']"
 								},
 								"sink": {
-									"name": "mta_tax"
+									"name": "mta_tax",
+									"type": "Double"
 								}
 							},
 							{
@@ -174,7 +181,8 @@
 									"path": "$['tip_amount']"
 								},
 								"sink": {
-									"name": "tip_amount"
+									"name": "tip_amount",
+									"type": "Double"
 								}
 							},
 							{
@@ -182,7 +190,8 @@
 									"path": "$['tolls_amount']"
 								},
 								"sink": {
-									"name": "tolls_amount"
+									"name": "tolls_amount",
+									"type": "Double"
 								}
 							},
 							{
@@ -190,7 +199,8 @@
 									"path": "$['total_amount']"
 								},
 								"sink": {
-									"name": "total_amount"
+									"name": "total_amount",
+									"type": "Double"
 								}
 							}
 						],
@@ -323,73 +333,7 @@
 						"writeBehavior": "upsert",
 						"disableMetricsCollection": false
 					},
-					"enableStaging": false,
-					"translator": {
-						"type": "TabularTranslator",
-						"mappings": [
-							{
-								"source": {
-									"path": "$['FareID']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['medallion']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['hack_license']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['vendor_id']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['pickup_datetime']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['payment_type']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['fare_amount']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['surcharge']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['mta_tax']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['tip_amount']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['tolls_amount']"
-								}
-							},
-							{
-								"source": {
-									"path": "$['total_amount']"
-								}
-							}
-						],
-						"collectionReference": ""
-					}
+					"enableStaging": false
 				},
 				"inputs": [
 					{
