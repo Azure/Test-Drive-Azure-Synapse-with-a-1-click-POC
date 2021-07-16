@@ -18,8 +18,9 @@
 					"source": {
 						"type": "DelimitedTextSource",
 						"storeSettings": {
-							"type": "HttpReadSettings",
-							"requestMethod": "GET"
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
 							"type": "DelimitedTextReadSettings"
@@ -40,7 +41,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "tripsDataSource",
+						"referenceName": "tripsFileSource",
 						"type": "DatasetReference"
 					}
 				],
@@ -78,7 +79,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "Load data from Cosmos DB",
+						"activity": "Load data into Cosmos DB",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -211,11 +212,17 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "faresDataSink",
+						"referenceName": "faresFileSink",
 						"type": "DatasetReference",
 						"parameters": {
-							"keyVaultName": "kvmsft",
-							"datalakeAccountName": "adlsmsft"
+							"keyVaultName": {
+								"value": "@pipeline().parameters.keyVaultName",
+								"type": "Expression"
+							},
+							"datalakeAccountName": {
+								"value": "@pipeline().parameters.datalakeAccountName",
+								"type": "Expression"
+							}
 						}
 					}
 				]
@@ -281,23 +288,20 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "tripDataSink",
+						"referenceName": "tripFileSink",
 						"type": "DatasetReference",
 						"parameters": {
 							"datalakeAccountName": {
 								"value": "@pipeline().parameters.datalakeAccountName",
 								"type": "Expression"
 							},
-							"keyVaultName": {
-								"value": "@pipeline().parameters.keyVaultName",
-								"type": "Expression"
-							}
+							"keyVaultName": "@pipeline().parameters.keyVaultName"
 						}
 					}
 				]
 			},
 			{
-				"name": "Load data from Cosmos DB",
+				"name": "Load data into Cosmos DB",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -310,13 +314,14 @@
 				"userProperties": [],
 				"typeProperties": {
 					"source": {
-						"type": "DelimitedTextSource",
+						"type": "JsonSource",
 						"storeSettings": {
-							"type": "HttpReadSettings",
-							"requestMethod": "GET"
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
 						},
 						"formatSettings": {
-							"type": "DelimitedTextReadSettings"
+							"type": "JsonReadSettings"
 						}
 					},
 					"sink": {
@@ -431,7 +436,7 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "faresDataSource",
+						"referenceName": "faresFileSource",
 						"type": "DatasetReference"
 					}
 				],
