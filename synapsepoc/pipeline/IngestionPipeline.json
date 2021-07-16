@@ -275,7 +275,17 @@
 				"outputs": [
 					{
 						"referenceName": "tripDataSink",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"datalakeAccountName": {
+								"value": "@pipeline().parameters.datalakeAccountName",
+								"type": "Expression"
+							},
+							"keyVaultName": {
+								"value": "@pipeline().parameters.keyVaultName",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			}
