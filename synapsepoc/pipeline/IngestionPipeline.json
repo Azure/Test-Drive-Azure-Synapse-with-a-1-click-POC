@@ -246,55 +246,88 @@
 							{
 								"source": {
 									"path": "$['medallion']"
+								},
+								"sink": {
+									"path": "$['medallion']"
 								}
 							},
 							{
 								"source": {
+									"path": "$['hack_license']"
+								},
+								"sink": {
 									"path": "$['hack_license']"
 								}
 							},
 							{
 								"source": {
 									"path": "$['vendor_id']"
+								},
+								"sink": {
+									"path": "$['vendor_id']"
 								}
 							},
 							{
 								"source": {
+									"path": "$['pickup_datetime']"
+								},
+								"sink": {
 									"path": "$['pickup_datetime']"
 								}
 							},
 							{
 								"source": {
 									"path": "$['payment_type']"
+								},
+								"sink": {
+									"path": "$['payment_type']"
 								}
 							},
 							{
 								"source": {
+									"path": "$['fare_amount']"
+								},
+								"sink": {
 									"path": "$['fare_amount']"
 								}
 							},
 							{
 								"source": {
 									"path": "$['surcharge']"
+								},
+								"sink": {
+									"path": "$['surcharge']"
 								}
 							},
 							{
 								"source": {
+									"path": "$['mta_tax']"
+								},
+								"sink": {
 									"path": "$['mta_tax']"
 								}
 							},
 							{
 								"source": {
 									"path": "$['tip_amount']"
+								},
+								"sink": {
+									"path": "$['tip_amount']"
 								}
 							},
 							{
 								"source": {
 									"path": "$['tolls_amount']"
+								},
+								"sink": {
+									"path": "$['tolls_amount']"
 								}
 							},
 							{
 								"source": {
+									"path": "$['total_amount']"
+								},
+								"sink": {
 									"path": "$['total_amount']"
 								}
 							}
