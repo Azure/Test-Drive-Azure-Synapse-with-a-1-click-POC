@@ -44,13 +44,24 @@
 				"inputs": [
 					{
 						"referenceName": "azureSynapseTripTable",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "@pipeline().parameters.SchemaName",
+							"SynapseWorkspaceName": "@pipeline().parameters.SynapseWorkspaceName",
+							"SQLDedicatedPoolName": "@pipeline().parameters.SQLDedicatedPoolName",
+							"keyVaultName": "@pipeline().parameters.keyVaultName",
+							"SQLLoginUsername": "@pipeline().parameters.SQLLoginUsername"
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "tripDataSink",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"datalakeAccountName": "@pipeline().parameters.datalakeAccountName",
+							"keyVaultName": "@pipeline().parameters.keyVaultName"
+						}
 					}
 				]
 			}
