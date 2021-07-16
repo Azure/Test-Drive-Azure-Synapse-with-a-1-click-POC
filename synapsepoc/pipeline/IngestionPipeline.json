@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Load data",
+				"name": "Load data into SQL DB",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -70,6 +70,212 @@
 								"type": "Expression"
 							}
 						}
+					}
+				]
+			},
+			{
+				"name": "Ingest data from NoSQL",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "CosmosDbSqlApiSource",
+						"preferredRegions": []
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['medallion']"
+								},
+								"sink": {
+									"name": "medallion"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hack_license']"
+								},
+								"sink": {
+									"name": "hack_license"
+								}
+							},
+							{
+								"source": {
+									"path": "$['vendor_id']"
+								},
+								"sink": {
+									"name": "vendor_id"
+								}
+							},
+							{
+								"source": {
+									"path": "$['pickup_datetime']"
+								},
+								"sink": {
+									"name": "pickup_datetime"
+								}
+							},
+							{
+								"source": {
+									"path": "$['payment_type']"
+								},
+								"sink": {
+									"name": "payment_type"
+								}
+							},
+							{
+								"source": {
+									"path": "$['fare_amount']"
+								},
+								"sink": {
+									"name": "fare_amount"
+								}
+							},
+							{
+								"source": {
+									"path": "$['surcharge']"
+								},
+								"sink": {
+									"name": "surcharge"
+								}
+							},
+							{
+								"source": {
+									"path": "$['mta_tax']"
+								},
+								"sink": {
+									"name": "mta_tax"
+								}
+							},
+							{
+								"source": {
+									"path": "$['tip_amount']"
+								},
+								"sink": {
+									"name": "tip_amount"
+								}
+							},
+							{
+								"source": {
+									"path": "$['tolls_amount']"
+								},
+								"sink": {
+									"name": "tolls_amount"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_amount']"
+								},
+								"sink": {
+									"name": "total_amount"
+								}
+							}
+						]
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "CosmosDbSqlApiCollection",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "faresDataSink",
+						"type": "DatasetReference",
+						"parameters": {
+							"keyVaultName": "kvmsft",
+							"datalakeAccountName": "adlsmsft"
+						}
+					}
+				]
+			},
+			{
+				"name": "Ingest data into Data Lake",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Load data into SQL DB",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlDWSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "azureSynapseTripTable",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": "@pipeline().parameters.SchemaName",
+							"SynapseWorkspaceName": "@pipeline().parameters.SynapseWorkspaceName",
+							"SQLDedicatedPoolName": "@pipeline().parameters.SQLDedicatedPoolName",
+							"keyVaultName": "@pipeline().parameters.keyVaultName",
+							"SQLLoginUsername": "@pipeline().parameters.SQLLoginUsername"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "tripDataSink",
+						"type": "DatasetReference"
 					}
 				]
 			}
