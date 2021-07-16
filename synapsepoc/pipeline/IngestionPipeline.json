@@ -239,7 +239,68 @@
 						"type": "CosmosDbSqlApiSink",
 						"writeBehavior": "insert"
 					},
-					"enableStaging": false
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"path": "$['medallion']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['hack_license']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['vendor_id']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['pickup_datetime']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['payment_type']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['fare_amount']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['surcharge']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['mta_tax']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['tip_amount']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['tolls_amount']"
+								}
+							},
+							{
+								"source": {
+									"path": "$['total_amount']"
+								}
+							}
+						],
+						"collectionReference": ""
+					}
 				},
 				"inputs": [
 					{
