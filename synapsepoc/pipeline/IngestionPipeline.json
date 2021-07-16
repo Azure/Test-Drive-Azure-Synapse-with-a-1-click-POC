@@ -46,11 +46,26 @@
 						"referenceName": "azureSynapseTripTable",
 						"type": "DatasetReference",
 						"parameters": {
-							"SchemaName": "@pipeline().parameters.SchemaName",
-							"SynapseWorkspaceName": "@pipeline().parameters.SynapseWorkspaceName",
-							"SQLDedicatedPoolName": "@pipeline().parameters.SQLDedicatedPoolName",
-							"keyVaultName": "@pipeline().parameters.keyVaultName",
-							"SQLLoginUsername": "@pipeline().parameters.SQLLoginUsername"
+							"SchemaName": {
+								"value": "@pipeline().parameters.SchemaName",
+								"type": "Expression"
+							},
+							"SynapseWorkspaceName": {
+								"value": "@pipeline().parameters.SynapseWorkspaceName",
+								"type": "Expression"
+							},
+							"SQLDedicatedPoolName": {
+								"value": "@pipeline().parameters.SQLDedicatedPoolName",
+								"type": "Expression"
+							},
+							"keyVaultName": {
+								"value": "@pipeline().parameters.KeyVaultName",
+								"type": "Expression"
+							},
+							"SQLLoginUsername": {
+								"value": "@pipeline().parameters.SQLLoginUsername",
+								"type": "Expression"
+							}
 						}
 					}
 				],
