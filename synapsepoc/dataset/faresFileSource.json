@@ -1,0 +1,63 @@
+{
+	"name": "faresFileSource",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "TripFaresDataLakeStorageLinkedService",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "TripFareDatasets"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "fares-data.json",
+				"folderPath": "raw-data",
+				"fileSystem": "public"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"FareID": {
+					"type": "integer"
+				},
+				"medallion": {
+					"type": "string"
+				},
+				"hack_license": {
+					"type": "string"
+				},
+				"vendor_id": {
+					"type": "string"
+				},
+				"pickup_datetime": {
+					"type": "string"
+				},
+				"payment_type": {
+					"type": "string"
+				},
+				"fare_amount": {
+					"type": "number"
+				},
+				"surcharge": {
+					"type": "integer"
+				},
+				"mta_tax": {
+					"type": "number"
+				},
+				"tip_amount": {
+					"type": "number"
+				},
+				"tolls_amount": {
+					"type": "number"
+				},
+				"total_amount": {
+					"type": "number"
+				}
+			}
+		}
+	}
+}
