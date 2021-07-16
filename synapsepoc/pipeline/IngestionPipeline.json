@@ -5,7 +5,14 @@
 			{
 				"name": "Ingest SQL DB",
 				"type": "Copy",
-				"dependsOn": [],
+				"dependsOn": [
+					{
+						"activity": "Load data",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
 				"policy": {
 					"timeout": "7.00:00:00",
 					"retry": 0,
@@ -34,6 +41,176 @@
 					"enableStaging": false,
 					"translator": {
 						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "medallion",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "medallion",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "hack_license",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "hack_license",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "vendor_id",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "vendor_id",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "rate_code",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "rate_code",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "store_and_fwd_flag",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "store_and_fwd_flag",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "pickup_datetime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "pickup_datetime",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "dropoff_datetime",
+									"type": "DateTime",
+									"physicalType": "datetime"
+								},
+								"sink": {
+									"name": "dropoff_datetime",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "passenger_count",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "passenger_count",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "trip_time_in_secs",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "trip_time_in_secs",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "trip_distance",
+									"type": "Single",
+									"physicalType": "float"
+								},
+								"sink": {
+									"name": "trip_distance",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "pickup_longitude",
+									"type": "Single",
+									"physicalType": "float"
+								},
+								"sink": {
+									"name": "pickup_longitude",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "pickup_latitude",
+									"type": "Single",
+									"physicalType": "float"
+								},
+								"sink": {
+									"name": "pickup_latitude",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "dropoff_longitude",
+									"type": "Single",
+									"physicalType": "float"
+								},
+								"sink": {
+									"name": "dropoff_longitude",
+									"type": "String",
+									"physicalType": "String"
+								}
+							},
+							{
+								"source": {
+									"name": "dropoff_latitude",
+									"type": "Single",
+									"physicalType": "float"
+								},
+								"sink": {
+									"name": "dropoff_latitude",
+									"type": "String",
+									"physicalType": "String"
+								}
+							}
+						],
 						"typeConversion": true,
 						"typeConversionSettings": {
 							"allowDataTruncation": true,
@@ -76,6 +253,75 @@
 						"parameters": {
 							"datalakeAccountName": "@pipeline().parameters.datalakeAccountName",
 							"keyVaultName": "@pipeline().parameters.keyVaultName"
+						}
+					}
+				]
+			},
+			{
+				"name": "Load data",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"allowPolyBase": true,
+						"polyBaseSettings": {
+							"rejectValue": 0,
+							"rejectType": "value",
+							"useTypeDefault": true
+						}
+					},
+					"enableStaging": false
+				},
+				"inputs": [
+					{
+						"referenceName": "tripsDataSource",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "azureSynapseTripTable",
+						"type": "DatasetReference",
+						"parameters": {
+							"SchemaName": {
+								"value": "@pipeline().parameters.SchemaName",
+								"type": "Expression"
+							},
+							"SynapseWorkspaceName": {
+								"value": "@pipeline().parameters.SynapseWorkspaceName",
+								"type": "Expression"
+							},
+							"SQLDedicatedPoolName": {
+								"value": "@pipeline().parameters.SQLDedicatedPoolName",
+								"type": "Expression"
+							},
+							"keyVaultName": {
+								"value": "@pipeline().parameters.keyVaultName",
+								"type": "Expression"
+							},
+							"SQLLoginUsername": {
+								"value": "@pipeline().parameters.SQLLoginUsername",
+								"type": "Expression"
+							}
 						}
 					}
 				]
