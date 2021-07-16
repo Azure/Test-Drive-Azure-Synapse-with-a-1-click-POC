@@ -376,14 +376,6 @@
 							},
 							{
 								"source": {
-									"path": "$['surcharge']"
-								},
-								"sink": {
-									"path": "$['surcharge']"
-								}
-							},
-							{
-								"source": {
 									"path": "$['mta_tax']"
 								},
 								"sink": {
