@@ -7,44 +7,7 @@
 		},
 		"annotations": [],
 		"type": "CosmosDbSqlApiCollection",
-		"schema": {
-			"type": "object",
-			"properties": {
-				"medallion": {
-					"type": "string"
-				},
-				"hack_license": {
-					"type": "string"
-				},
-				"vendor_id": {
-					"type": "string"
-				},
-				"pickup_datetime": {
-					"type": "string"
-				},
-				"payment_type": {
-					"type": "string"
-				},
-				"fare_amount": {
-					"type": "number"
-				},
-				"surcharge": {
-					"type": "number"
-				},
-				"mta_tax": {
-					"type": "number"
-				},
-				"tip_amount": {
-					"type": "number"
-				},
-				"tolls_amount": {
-					"type": "number"
-				},
-				"total_amount": {
-					"type": "number"
-				}
-			}
-		},
+		"schema": {},
 		"typeProperties": {
 			"collectionName": "fares"
 		}
