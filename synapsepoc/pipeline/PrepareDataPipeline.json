@@ -1,5 +1,5 @@
 {
-	"name": "TripFaresDataPipeline",
+	"name": "PrepareDataPipeline",
 	"properties": {
 		"activities": [
 			{
