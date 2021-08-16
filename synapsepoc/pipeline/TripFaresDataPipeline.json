@@ -299,7 +299,7 @@
 			},
 			"datalakeAccountName": {
 				"type": "string",
-				"defaultValue": "kviba3en45jrin4svepoc"
+				"defaultValue": "iba3en45jrin4svepoc"
 			}
 		},
 		"folder": {
