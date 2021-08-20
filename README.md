@@ -111,17 +111,17 @@ Power BI workspace created. Please note that you can’t use default workspace (
 **Link Azure Synapse workspace to Power BI workspace**
 
 - Go to Manage --> Linked Services.
-- click on {} next to ‘PowerBIWorkspaceTripsFares’. Copy and paste Power BI workspace ID
+- click on {} next to ‘PowerBIWorkspaceTripsFares’. Copy and paste Power BI workspace ID.
 ![image](https://user-images.githubusercontent.com/47899900/130295473-9b5ff0e3-408e-45a0-a1b3-2cc0c482a20f.png)
 
     ![image](https://user-images.githubusercontent.com/47899900/130295564-13e96734-0e1a-444a-b961-ba7879f03ab8.png)
 
 - Download [NYCTaxiCabTripAndFare.pbit] (https://github.com/venushaa/Test-Drive-Azure-Synapse-with-a-1-click-POC/blob/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit) from PowerBITemplate folder
-- Provide Server and login credentials
-- Server name and DB name can be found in connection strings
+- Provide Server and login credentials.
+- Server name and DB name can be found in connection strings.
 ![image](https://user-images.githubusercontent.com/47899900/130295630-77a69ee2-8656-43bc-8d15-58bba812f0f0.png)
-- Publish the dashboard to the Power BI workspace you have created
-- Go to Develop --> PowerBI --> Refresh
+- Publish the dashboard to the Power BI workspace you have created.
+- Go to Develop --> PowerBI --> Refresh.
 - you see the powerBI report in Synapse you had published in Power BI workspace.
 
     ![image](https://user-images.githubusercontent.com/47899900/130295705-07d6e054-92bf-4079-bb6f-ba28b0e4b8f9.png)
