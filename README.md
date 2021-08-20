@@ -102,4 +102,25 @@ Following resources are deployed with this template along with some RBAC role as
 
 ![PostDeployment-6](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/liveMode.PNG)
 
-## Test
+## Steps for Power BI integration
+
+**Pre-requisites**
+
+Power BI workspace created. Please note that you can’t use default workspace (‘My workspace’). create a new PBI workspace or use any other workspace other than ‘My workspace’.
+
+**Link Azure Synapse workspace to Power BI workspace**
+
+
+- Go to Manage --> Linked Services.
+- click on {} next to ‘PowerBIWorkspaceTripsFares’. Copy and paste Power BI workspace ID
+
+![image](https://user-images.githubusercontent.com/47899900/130274721-fc80dae3-73b5-4f40-b9f5-b73d6de55dc8.png)
+
+- Download [NYCTaxiCabTripAndFare.pbit] (https://github.com/venushaa/Test-Drive-Azure-Synapse-with-a-1-click-POC/blob/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit) from PowerBITemplate folder
+- Provide Server and login credentials
+- Server name and DB name can be found in connection strings 
+![image](https://user-images.githubusercontent.com/47899900/130284124-11453707-79ed-4f8e-9611-0ab21c691b55.png)
+- Publish the dashboard to the Power BI workspace you have created
+- Go to Develop  PowerBI  Refresh  you see the powerBI report in Synapse you had published in Power BI workspace.
+    ![image](https://user-images.githubusercontent.com/47899900/130284216-f7d2e5ee-1070-4cbc-affe-bd502939ac61.png)
+
