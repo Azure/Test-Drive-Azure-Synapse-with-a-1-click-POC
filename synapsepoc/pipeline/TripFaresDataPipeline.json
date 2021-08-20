@@ -244,7 +244,7 @@
 					"source": {
 						"type": "SqlDWSource",
 						"sqlReaderQuery": {
-							"value": "IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = '@{pipeline().parameters.SchemaName}')\nBEGIN\nEXEC('CREATE SCHEMA @{pipeline().parameters.SchemaName}')\nselect Count(*) from sys.symmetric_keys;\nEND\nELSE\nBEGIN\n    select Count(*) from sys.symmetric_keys;\nEND",
+							"value": "IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = '@{pipeline().parameters.SchemaName}')\nBEGIN\nEXEC('CREATE SCHEMA @{pipeline().parameters.SchemaName}')\nEXEC sp_addrolemember 'xlargerc', 'masteruser';\nselect Count(*) from sys.symmetric_keys;\nEND\nELSE\nBEGIN\nEXEC sp_addrolemember 'xlargerc', 'masteruser';\nselect Count(*) from sys.symmetric_keys;\nEND",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
@@ -280,7 +280,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "IngestTripDataIntoADLS",
+						"activity": "Create Schema If Does Not Exists",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -370,7 +370,7 @@
 				"type": "Copy",
 				"dependsOn": [
 					{
-						"activity": "IngestTripFaresDataIntoADLS",
+						"activity": "Create Schema If Does Not Exists",
 						"dependencyConditions": [
 							"Succeeded"
 						]
