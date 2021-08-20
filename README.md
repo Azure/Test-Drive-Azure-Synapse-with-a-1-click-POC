@@ -101,3 +101,5 @@ Following resources are deployed with this template along with some RBAC role as
 - To switch to the live mode from git mode, click the drop down at top left corner and select 'Switch to live mode'.
 
 ![PostDeployment-6](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/liveMode.PNG)
+
+## Test
