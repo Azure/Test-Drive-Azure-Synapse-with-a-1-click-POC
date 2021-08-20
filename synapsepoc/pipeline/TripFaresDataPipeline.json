@@ -307,6 +307,7 @@
 					},
 					"sink": {
 						"type": "SqlDWSink",
+						"preCopyScript": "IF (EXISTS (SELECT *\n  FROM INFORMATION_SCHEMA.TABLES\n  WHERE TABLE_SCHEMA = 'dbo'\n  AND TABLE_NAME = 'TripsData'))\nBEGIN \n   Truncate table TripsData;\nEnd\n",
 						"allowPolyBase": true,
 						"polyBaseSettings": {
 							"rejectValue": 0,
@@ -397,6 +398,7 @@
 					},
 					"sink": {
 						"type": "SqlDWSink",
+						"preCopyScript": "IF (EXISTS (SELECT *\n  FROM INFORMATION_SCHEMA.TABLES\n  WHERE TABLE_SCHEMA = 'dbo'\n  AND TABLE_NAME = 'FaresData'))\nBEGIN \n   Truncate table FaresData;\nEnd\n",
 						"allowPolyBase": true,
 						"polyBaseSettings": {
 							"rejectValue": 0,
