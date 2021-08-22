@@ -111,10 +111,11 @@ Power BI workspace created. Please note that you can’t use default workspace (
 **Link Azure Synapse workspace to Power BI workspace**
 
 - Go to Manage --> Linked Services.
-- click on {} next to ‘PowerBIWorkspaceTripsFares’. Copy and paste Power BI workspace ID.
-![image](https://user-images.githubusercontent.com/47899900/130295473-9b5ff0e3-408e-45a0-a1b3-2cc0c482a20f.png)
+- click on PowerBIWorkspaceTripsFares linked service
+    ![image](https://user-images.githubusercontent.com/47899900/130304178-5d50ba33-ee7b-488a-a6cf-c6627c188e56.png)
+- From the drop down list, select your powerBI workcpace and Save and publish.
 
-    ![image](https://user-images.githubusercontent.com/47899900/130295564-13e96734-0e1a-444a-b961-ba7879f03ab8.png)
+    ![image](https://user-images.githubusercontent.com/47899900/130304322-d1e39c2c-a3e9-4e13-bd52-bcd4cf637347.png)
 
 - Download [NYCTaxiCabTripAndFare.pbit] (https://github.com/venushaa/Test-Drive-Azure-Synapse-with-a-1-click-POC/blob/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit) from PowerBITemplate folder
 - Provide Server and login credentials.
