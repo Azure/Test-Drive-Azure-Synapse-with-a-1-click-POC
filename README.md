@@ -57,7 +57,7 @@ Following resources are deployed with this template along with some RBAC role as
 <!-- The data pipeline inside the Synapse Workspace gets New York Taxi trip and fare data, joins them and perform aggregations on them to give the final aggregated results. Other resources include datasets, linked services and dataflows. All resources are completely parameterized and all the secrets are stored in the key vault. These secrets are fetched inside the linked services using key vault linked service. The Logic App will check for Active Queries. If there are active queries, it will wait 5 minutes and check again until there are none before pausing -->
 
 ## Post Deployment
-- Current Azure user needs to have ["Storage Blob Data Contributor" role access](https://docs.microsoft.com/en-us/azure/synapse-analytics/get-started-add-admin#azure-rbac-role-assignments-on-the-workspaces-primary-storage-account) to recently created Azure Data Lake Storage Gen2 account to avoid 403 type permission errors.
+- Current Azure user needs to have "Storage Blob Data Contributor" role access to recently created Azure Data Lake Storage Gen2 account to avoid 403 type permission errors.
 - After the deployment is complete, click 'Go to resource group'.
 - You'll see all the resources deployed in the resource group.
 - Click on the newly deployed Synapse workspace.
@@ -102,4 +102,30 @@ Following resources are deployed with this template along with some RBAC role as
 
 ![PostDeployment-6](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/liveMode.PNG)
 
-**PBI Integration**
+## Steps for Power BI integration
+
+**Pre-requisites**
+
+Power BI workspace created. Please note that you can’t use default workspace (‘My workspace’). create a new PBI workspace or use any other workspace other than ‘My workspace’.
+
+Create power BI workspace --> https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-create-the-new-workspaces
+
+**Link Azure Synapse workspace to Power BI workspace**
+
+- Go to Manage --> Linked Services.
+- click on PowerBIWorkspaceTripsFares linked service
+    ![image](https://user-images.githubusercontent.com/47899900/130304178-5d50ba33-ee7b-488a-a6cf-c6627c188e56.png)
+- From the drop down list, select your powerBI workcpace and Save and publish.
+
+    ![image](https://user-images.githubusercontent.com/47899900/130304322-d1e39c2c-a3e9-4e13-bd52-bcd4cf637347.png)
+
+- Download [NYCTaxiCabTripAndFare.pbit] (https://github.com/venushaa/Test-Drive-Azure-Synapse-with-a-1-click-POC/blob/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit) from PowerBITemplate folder
+- Provide Server and login credentials.
+- Server name and DB name can be found in connection strings.
+![image](https://user-images.githubusercontent.com/47899900/130295630-77a69ee2-8656-43bc-8d15-58bba812f0f0.png)
+- Publish the dashboard to the Power BI workspace you have created.
+- Go to Develop --> PowerBI --> Refresh.
+- you see the powerBI report in Synapse you had published in Power BI workspace.
+
+    ![image](https://user-images.githubusercontent.com/47899900/130295705-07d6e054-92bf-4079-bb6f-ba28b0e4b8f9.png)
+
