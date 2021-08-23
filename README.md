@@ -102,4 +102,4 @@ Following resources are deployed with this template along with some RBAC role as
 
 ![PostDeployment-6](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/liveMode.PNG)
 
-**PBI**
+**PBI Integration**
