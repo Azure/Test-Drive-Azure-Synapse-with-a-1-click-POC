@@ -107,6 +107,7 @@ Following resources are deployed with this template along with some RBAC role as
 **Pre-requisites**
 
 Power BI workspace created. Please note that you can’t use default workspace (‘My workspace’). create a new PBI workspace or use any other workspace other than ‘My workspace’.
+
 Create power BI workspace --> https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-create-the-new-workspaces
 
 **Link Azure Synapse workspace to Power BI workspace**
