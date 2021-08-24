@@ -121,7 +121,7 @@ Create PowerBI workspace --> https://docs.microsoft.com/en-us/power-bi/collabora
 
 
 
-- Download [NYCTaxiCabTripAndFare.pbit] (https://github.com/venushaa/Test-Drive-Azure-Synapse-with-a-1-click-POC/blob/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit) from PowerBITemplate folder
+- Download [NYCTaxiCabTripAndFare.pbit] (https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/tree/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit) from PowerBITemplate folder
 - Provide Server and login credentials.
 - Server name and DB name can be found in connection strings.
 ![image](https://user-images.githubusercontent.com/47899900/130510699-be974053-579f-4e9d-b8e8-011f1dbd3bb7.png)
@@ -129,5 +129,4 @@ Create PowerBI workspace --> https://docs.microsoft.com/en-us/power-bi/collabora
 - Go to Develop --> PowerBI --> Refresh.
 - You see the PowerBI report in Synapse you had published in PowerBI workspace.
 
-    ![image](https://user-images.githubusercontent.com/47899900/130295705-07d6e054-92bf-4079-bb6f-ba28b0e4b8f9.png)
-
+     ![image](https://user-images.githubusercontent.com/47899900/130661751-b73df106-8940-4840-aedf-58ff83e060ef.png)
