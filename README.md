@@ -112,21 +112,44 @@ Create PowerBI workspace --> https://docs.microsoft.com/en-us/power-bi/collabora
 
 **Link Azure Synapse workspace to PowerBI workspace**
 
-- Go to Manage --> Linked Services.
+- In Synapse workspace, go to Manage --> Linked Services.
 - Click on PowerBIWorkspaceTripsFares linked service
-    ![image](https://user-images.githubusercontent.com/47899900/130508485-fb5a0d94-561d-4fa0-bd6b-6a079306d211.png)
+
+![image](https://user-images.githubusercontent.com/47899900/130508485-fb5a0d94-561d-4fa0-bd6b-6a079306d211.png)
 - From the drop down list, select your PowerBI workspace and Save and publish.
 
-    ![image](https://user-images.githubusercontent.com/47899900/130509536-f55a255e-f635-4272-8abf-03463ac9a8df.png)
-
+![image](https://user-images.githubusercontent.com/47899900/130690579-6be54c37-dd83-446b-9646-241125f3a107.png)
 
 
 - Download [NYCTaxiCabTripAndFare.pbit] (https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/tree/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit) from PowerBITemplate folder
-- Provide Server and login credentials.
-- Server name and DB name can be found in connection strings.
+- Provide ServerName, DatabaseName and login credentials. ServerName and DatabaseName can be found in connection strings.
+- To get the connection string, click on Dedicated SQL Pool
+
+![image](https://user-images.githubusercontent.com/47899900/130687258-b707f9ae-bbd2-4326-9153-06a7d2a20821.png)
+
+- On the left hand side menu, click on connection strings
+
+![image](https://user-images.githubusercontent.com/47899900/130687108-44c0f212-e6c4-4621-9f9d-e525a58dbbae.png)
+
+
 ![image](https://user-images.githubusercontent.com/47899900/130510699-be974053-579f-4e9d-b8e8-011f1dbd3bb7.png)
-- Publish the dashboard to the PowerBI workspace you have created.
-- Go to Develop --> PowerBI --> Refresh.
+
+- Copy ServerName and DatabaseName from connection string, paste them in PowerBI and click on 'Load'.
+
+![image](https://user-images.githubusercontent.com/47899900/130690063-e05ad18c-08dc-4e8f-85a1-7d7b9b190eeb.png)
+
+
+- Select 'Database' (instead of default 'Windows') and provide User name,  Password and click on 'Connect'
+
+![image](https://user-images.githubusercontent.com/47899900/130689585-ce269746-0389-4852-a945-ed6997e12dac.png)
+
+
+- Change the sensitivity level to 'Public' and **save** the dashboard. 
+- Publish the dashboard to the PowerBI workspace you have created by clicking on 'Publish' and selecting the workspace.
+
+![image](https://user-images.githubusercontent.com/47899900/130686112-c383ffcd-8712-41aa-82b3-9ca4dfdd6901.png)
+
+- In Synapse workspage navigate to Develop --> PowerBI --> Refresh.
 - You see the PowerBI report in Synapse you had published in PowerBI workspace.
 
-     ![image](https://user-images.githubusercontent.com/47899900/130661751-b73df106-8940-4840-aedf-58ff83e060ef.png)
+![image](https://user-images.githubusercontent.com/47899900/130661751-b73df106-8940-4840-aedf-58ff83e060ef.png)
