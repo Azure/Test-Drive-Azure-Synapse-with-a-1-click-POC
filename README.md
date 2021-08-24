@@ -115,7 +115,7 @@ Create power BI workspace --> https://docs.microsoft.com/en-us/power-bi/collabor
 - Go to Manage --> Linked Services.
 - click on PowerBIWorkspaceTripsFares linked service
     ![image](https://user-images.githubusercontent.com/47899900/130508485-fb5a0d94-561d-4fa0-bd6b-6a079306d211.png)
-- From the drop down list, select your powerBI workcpace and Save and publish.
+- From the drop down list, select your powerBI workspace and Save and publish.
 
     ![image](https://user-images.githubusercontent.com/47899900/130509536-f55a255e-f635-4272-8abf-03463ac9a8df.png)
 
