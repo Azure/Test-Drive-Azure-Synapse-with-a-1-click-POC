@@ -114,15 +114,17 @@ Create power BI workspace --> https://docs.microsoft.com/en-us/power-bi/collabor
 
 - Go to Manage --> Linked Services.
 - click on PowerBIWorkspaceTripsFares linked service
-    ![image](https://user-images.githubusercontent.com/47899900/130304178-5d50ba33-ee7b-488a-a6cf-c6627c188e56.png)
+    ![image](https://user-images.githubusercontent.com/47899900/130508485-fb5a0d94-561d-4fa0-bd6b-6a079306d211.png)
 - From the drop down list, select your powerBI workcpace and Save and publish.
 
-    ![image](https://user-images.githubusercontent.com/47899900/130304322-d1e39c2c-a3e9-4e13-bd52-bcd4cf637347.png)
+    ![image](https://user-images.githubusercontent.com/47899900/130509536-f55a255e-f635-4272-8abf-03463ac9a8df.png)
+
+
 
 - Download [NYCTaxiCabTripAndFare.pbit] (https://github.com/venushaa/Test-Drive-Azure-Synapse-with-a-1-click-POC/blob/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit) from PowerBITemplate folder
 - Provide Server and login credentials.
 - Server name and DB name can be found in connection strings.
-![image](https://user-images.githubusercontent.com/47899900/130295630-77a69ee2-8656-43bc-8d15-58bba812f0f0.png)
+![image](https://user-images.githubusercontent.com/47899900/130510699-be974053-579f-4e9d-b8e8-011f1dbd3bb7.png)
 - Publish the dashboard to the Power BI workspace you have created.
 - Go to Develop --> PowerBI --> Refresh.
 - you see the powerBI report in Synapse you had published in Power BI workspace.
