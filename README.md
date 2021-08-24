@@ -37,6 +37,7 @@ Owner role (or Contributor roles) for the Azure Subscription the template being 
      - Pause Time
      - Option (Enabled or Disabled) for Transparent Data Encryption
      - Github Username (username for the account where [this github repository](https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC) was forked out into)
+     
 
    - Click 'Review + Create'.
    - On successful validation, click 'Create'.
@@ -102,4 +103,30 @@ Following resources are deployed with this template along with some RBAC role as
 
 ![PostDeployment-6](https://raw.githubusercontent.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/main/images/liveMode.PNG)
 
-**PBI**
+## Steps for Power BI integration
+
+**Pre-requisites**
+
+Power BI workspace created. Please note that you can’t use default workspace (‘My workspace’). create a new PBI workspace or use any other workspace other than ‘My workspace’.
+
+Create power BI workspace --> https://docs.microsoft.com/en-us/power-bi/collaborate-share/service-create-the-new-workspaces
+
+**Link Azure Synapse workspace to Power BI workspace**
+
+- Go to Manage --> Linked Services.
+- click on PowerBIWorkspaceTripsFares linked service
+    ![image](https://user-images.githubusercontent.com/47899900/130304178-5d50ba33-ee7b-488a-a6cf-c6627c188e56.png)
+- From the drop down list, select your powerBI workcpace and Save and publish.
+
+    ![image](https://user-images.githubusercontent.com/47899900/130304322-d1e39c2c-a3e9-4e13-bd52-bcd4cf637347.png)
+
+- Download [NYCTaxiCabTripAndFare.pbit] (https://github.com/venushaa/Test-Drive-Azure-Synapse-with-a-1-click-POC/blob/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit) from PowerBITemplate folder
+- Provide Server and login credentials.
+- Server name and DB name can be found in connection strings.
+![image](https://user-images.githubusercontent.com/47899900/130295630-77a69ee2-8656-43bc-8d15-58bba812f0f0.png)
+- Publish the dashboard to the Power BI workspace you have created.
+- Go to Develop --> PowerBI --> Refresh.
+- you see the powerBI report in Synapse you had published in Power BI workspace.
+
+    ![image](https://user-images.githubusercontent.com/47899900/130295705-07d6e054-92bf-4079-bb6f-ba28b0e4b8f9.png)
+

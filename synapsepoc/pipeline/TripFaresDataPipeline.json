@@ -274,6 +274,188 @@
 					},
 					"firstRowOnly": false
 				}
+			},
+			{
+				"name": "Copy data Trips Data",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Create Schema If Does Not Exists",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF (EXISTS (SELECT *\n  FROM INFORMATION_SCHEMA.TABLES\n  WHERE TABLE_SCHEMA = 'dbo'\n  AND TABLE_NAME = 'TripsData'))\nBEGIN \n   Truncate table TripsData;\nEnd\n",
+						"allowPolyBase": true,
+						"polyBaseSettings": {
+							"rejectValue": 0,
+							"rejectType": "value",
+							"useTypeDefault": true
+						},
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "TripFaresDataLakeStorageLinkedService",
+							"type": "LinkedServiceReference",
+							"parameters": {
+								"keyVaultName": {
+									"value": "@pipeline().parameters.KeyVaultName",
+									"type": "Expression"
+								},
+								"datalakeAccountName": {
+									"value": "@pipeline().parameters.datalakeAccountName",
+									"type": "Expression"
+								}
+							}
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "tripsDataSource",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSynapseAnalyticsTripsData",
+						"type": "DatasetReference",
+						"parameters": {
+							"SynapseWorkspaceName": {
+								"value": "@pipeline().parameters.SynapseWorkspaceName",
+								"type": "Expression"
+							},
+							"SQLDedicatedPoolName": {
+								"value": "@pipeline().parameters.SQLDedicatedPoolName",
+								"type": "Expression"
+							},
+							"keyVaultName": {
+								"value": "@pipeline().parameters.KeyVaultName",
+								"type": "Expression"
+							},
+							"SQLLoginUsername": {
+								"value": "@pipeline().parameters.SQLLoginUsername",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			},
+			{
+				"name": "Copy data Fares Data",
+				"type": "Copy",
+				"dependsOn": [
+					{
+						"activity": "Create Schema If Does Not Exists",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "HttpReadSettings",
+							"requestMethod": "GET"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "SqlDWSink",
+						"preCopyScript": "IF (EXISTS (SELECT *\n  FROM INFORMATION_SCHEMA.TABLES\n  WHERE TABLE_SCHEMA = 'dbo'\n  AND TABLE_NAME = 'FaresData'))\nBEGIN \n   Truncate table FaresData;\nEnd\n",
+						"allowPolyBase": true,
+						"polyBaseSettings": {
+							"rejectValue": 0,
+							"rejectType": "value",
+							"useTypeDefault": true
+						},
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": true,
+					"stagingSettings": {
+						"linkedServiceName": {
+							"referenceName": "TripFaresDataLakeStorageLinkedService",
+							"type": "LinkedServiceReference",
+							"parameters": {
+								"keyVaultName": {
+									"value": "@pipeline().parameters.KeyVaultName",
+									"type": "Expression"
+								},
+								"datalakeAccountName": {
+									"value": "@pipeline().parameters.datalakeAccountName",
+									"type": "Expression"
+								}
+							}
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "faresDataSource",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "AzureSynapseAnalyticsFaresData",
+						"type": "DatasetReference",
+						"parameters": {
+							"SynapseWorkspaceName": {
+								"value": "@pipeline().parameters.SynapseWorkspaceName",
+								"type": "Expression"
+							},
+							"SQLDedicatedPoolName": {
+								"value": "@pipeline().parameters.SQLDedicatedPoolName",
+								"type": "Expression"
+							},
+							"keyVaultName": {
+								"value": "@pipeline().parameters.KeyVaultName",
+								"type": "Expression"
+							},
+							"SQLLoginUsername": {
+								"value": "@pipeline().parameters.SQLLoginUsername",
+								"type": "Expression"
+							}
+						}
+					}
+				]
 			}
 		],
 		"parameters": {
