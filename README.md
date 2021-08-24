@@ -113,7 +113,7 @@ Create PowerBI workspace --> https://docs.microsoft.com/en-us/power-bi/collabora
 **Link Azure Synapse workspace to PowerBI workspace**
 
 - Go to Manage --> Linked Services.
-- click on PowerBIWorkspaceTripsFares linked service
+- Click on PowerBIWorkspaceTripsFares linked service
     ![image](https://user-images.githubusercontent.com/47899900/130508485-fb5a0d94-561d-4fa0-bd6b-6a079306d211.png)
 - From the drop down list, select your PowerBI workspace and Save and publish.
 
@@ -127,7 +127,7 @@ Create PowerBI workspace --> https://docs.microsoft.com/en-us/power-bi/collabora
 ![image](https://user-images.githubusercontent.com/47899900/130510699-be974053-579f-4e9d-b8e8-011f1dbd3bb7.png)
 - Publish the dashboard to the PowerBI workspace you have created.
 - Go to Develop --> PowerBI --> Refresh.
-- you see the PowerBI report in Synapse you had published in PowerBI workspace.
+- You see the PowerBI report in Synapse you had published in PowerBI workspace.
 
     ![image](https://user-images.githubusercontent.com/47899900/130295705-07d6e054-92bf-4079-bb6f-ba28b0e4b8f9.png)
 
