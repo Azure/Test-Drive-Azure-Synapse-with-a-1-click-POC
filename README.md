@@ -132,9 +132,11 @@ Create PowerBI workspace --> https://docs.microsoft.com/en-us/power-bi/collabora
 ![image](https://user-images.githubusercontent.com/47899900/130687108-44c0f212-e6c4-4621-9f9d-e525a58dbbae.png)
 
 
-![image](https://user-images.githubusercontent.com/47899900/130510699-be974053-579f-4e9d-b8e8-011f1dbd3bb7.png)
 
 - Copy ServerName and DatabaseName from connection string, paste them in PowerBI and click on 'Load'.
+
+![image](https://user-images.githubusercontent.com/47899900/130510699-be974053-579f-4e9d-b8e8-011f1dbd3bb7.png)
+
 
 ![image](https://user-images.githubusercontent.com/47899900/130690063-e05ad18c-08dc-4e8f-85a1-7d7b9b190eeb.png)
 
