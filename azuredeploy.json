@@ -226,17 +226,6 @@
         "description": "Time of day when the data warehouse will be paused"
       }
     },
-    "transparentDataEncryption": {
-        "type": "string",
-        "defaultValue": "Disabled",
-        "allowedValues": [
-          "Enabled",
-          "Disabled"
-        ],
-        "metadata": {
-          "description": "Enable or Disable Transparent Data Encryption on SQL pool"
-        }
-    },
     "githubUsername": {
         "type": "string",
         "metadata": {
@@ -506,17 +495,6 @@
           ],
           "properties": {
             "Enabled": "[parameters('metadataSync')]"
-          }
-        },
-        {
-          "name": "current",
-          "type": "transparentDataEncryption",
-          "apiVersion": "2021-03-01",
-          "dependsOn": [
-            "[variables('sqlPoolName')]"
-          ],
-          "properties": {
-            "status": "[parameters('transparentDataEncryption')]"
           }
         }
       ]
