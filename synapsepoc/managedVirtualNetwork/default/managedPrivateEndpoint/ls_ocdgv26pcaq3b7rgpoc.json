@@ -1,0 +1,7 @@
+{
+	"name": "ls_ocdgv26pcaq3b7rgpoc",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/9b4410b8-d9a6-4568-878b-344c9b2049e5/resourceGroups/iboneclickdeploymentpoc/providers/Microsoft.Storage/storageAccounts/ocdgv26pcaq3b7rgpoc",
+		"groupId": "dfs"
+	}
+}
