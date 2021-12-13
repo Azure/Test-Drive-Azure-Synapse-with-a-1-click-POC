@@ -1,0 +1,7 @@
+{
+	"name": "pe-ibAdfCrossTenantDataIngestion-crossteantdataingestiondemo",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/1897e5c8-7f11-4edb-a252-0d5ea15faa20/resourceGroups/IB_CrossTenantDemo_RG/providers/Microsoft.Storage/storageAccounts/ibadlsctdidemo",
+		"groupId": "dfs"
+	}
+}
