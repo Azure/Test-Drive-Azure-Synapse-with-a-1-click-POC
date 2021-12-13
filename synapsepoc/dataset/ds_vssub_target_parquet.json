@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"folderPath": "Green",
 				"fileSystem": "crossteantdataingestiondemo"
 			},
 			"compressionCodec": "snappy"
