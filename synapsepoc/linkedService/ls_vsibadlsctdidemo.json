@@ -9,7 +9,7 @@
 			"tenant": "e0c13527-efc8-4b9a-b937-f43923d7d4a8",
 			"servicePrincipalId": "bb17a64c-5e88-4a20-bf2d-9e49be2a1ac4",
 			"servicePrincipalCredentialType": "ServicePrincipalKey",
-			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIlNZTkFQU0VAODdGRkVDQjctREU3Mi00M0M2LTk3RTYtMTRCRDBFMkU4RDI2XzhlZGM4YjY5LWIyZGItNDExMC1iZjI5LWVmOGU4ZjIwNWNkNSINCn0="
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIlNZTkFQU0VAODdGRkVDQjctREU3Mi00M0M2LTk3RTYtMTRCRDBFMkU4RDI2XzJlNjZmZmM1LTc1ZWEtNDc5ZS1iNjk0LTY3MDIxNDgyMzEwMCINCn0="
 		},
 		"connectVia": {
 			"referenceName": "AutoResolveIntegrationRuntime",
