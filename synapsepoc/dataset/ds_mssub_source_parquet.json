@@ -1,0 +1,20 @@
+{
+	"name": "ds_mssub_source_parquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_ibadlsdemostorageaccount",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "green",
+				"fileSystem": "curated"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}

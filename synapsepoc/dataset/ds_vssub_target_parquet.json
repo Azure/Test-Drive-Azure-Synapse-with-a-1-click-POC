@@ -1,0 +1,19 @@
+{
+	"name": "ds_vssub_target_parquet",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_vsibadlsctdidemo",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileSystem": "crossteantdataingestiondemo"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": []
+	}
+}
