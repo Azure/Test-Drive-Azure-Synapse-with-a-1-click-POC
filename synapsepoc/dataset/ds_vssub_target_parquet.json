@@ -2,7 +2,7 @@
 	"name": "ds_vssub_target_parquet",
 	"properties": {
 		"linkedServiceName": {
-			"referenceName": "ls_vsibadlsctdidemo",
+			"referenceName": "AzureDataLakeStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"annotations": [],
