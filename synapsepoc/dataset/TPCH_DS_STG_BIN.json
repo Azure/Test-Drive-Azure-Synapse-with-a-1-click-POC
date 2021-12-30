@@ -1,0 +1,36 @@
+{
+	"name": "TPCH_DS_STG_BIN",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "TPCH_LK_STG_BIN",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"keyVaultName": {
+					"value": "@pipeline().parameters.KeyVaultName",
+					"type": "Expression"
+				},
+				"datalakeAccountName": {
+					"value": "@pipeline().parameters.datalakeAccountName",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"datalakeAccountName": {
+				"type": "string"
+			},
+			"keyVaultName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "tpch1tb",
+				"fileSystem": "public"
+			}
+		}
+	}
+}
