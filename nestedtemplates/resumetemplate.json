@@ -51,7 +51,7 @@
     "recurrenceSchedule": "[if(equals(parameters('Frequency'), 'Weekdays'), variables('weekdaySchedule'), variables('dailySchedule'))]",
     "resumeTimeString": "[substring(parameters('ResumeTime'), 0, 8)]",
     "synapseWorkspaceName": "[toLower(concat(variables('synapseName'),'ws1'))]",
-    "synapseName": "[toLower(concat(parameters('companyTla'),parameters('deploymentType')))]",
+    "synapseName": "[toLower(concat(parameters('companyTla'),uniquestring(resourceGroup().id),variables('deploymentType')))]",
     "synapseSQLPoolName": "[toLower(concat(variables('workspaceName'),'p1'))]",
     "workspaceName": "[toLower(concat(variables('synapseName'),'ws1'))]",
     "managementEndpoint": "[environment().resourceManager]",
