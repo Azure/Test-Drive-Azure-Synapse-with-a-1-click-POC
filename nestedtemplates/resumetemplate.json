@@ -49,6 +49,7 @@
       "Friday"
     ],
     "recurrenceSchedule": "[if(equals(parameters('Frequency'), 'Weekdays'), variables('weekdaySchedule'), variables('dailySchedule'))]",
+    "deploymentType": "poc",
     "resumeTimeString": "[substring(parameters('ResumeTime'), 0, 8)]",
     "synapseName": "[toLower(concat(parameters('companyTla'),uniquestring(resourceGroup().id),variables('deploymentType')))]",
     "sqlPoolName": "[toLower(concat(variables('workspaceName'),'p1'))]",
