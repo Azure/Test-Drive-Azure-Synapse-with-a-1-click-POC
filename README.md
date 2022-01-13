@@ -17,7 +17,7 @@ Owner role (or Contributor roles) for the Azure Subscription the template being 
  
 2. Click 'Deploy To Azure' button given below to deploy all the resources.
 
-    [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fosamaemumba%2FTest-Drive-Azure-Synapse-with-a-1-click-POC%2Fmain%2Fazuredeploy.json)
+    [![Deploy To Azure](https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/1-CONTRIBUTION-GUIDE/images/deploytoazure.svg?sanitize=true)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FAzure%2FTest-Drive-Azure-Synapse-with-a-1-click-POC%2Fmain%2Fazuredeploy.json)
 
    - Provide the values for:
 
