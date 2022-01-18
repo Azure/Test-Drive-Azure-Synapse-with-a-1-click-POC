@@ -48,9 +48,9 @@
       "Friday"
     ],
     "recurrenceSchedule": "[if(equals(parameters('Frequency'), 'Weekdays'), variables('weekdaySchedule'), variables('dailySchedule'))]",
-    "synapseWorkspaceName": "[toLower(concat(variables('synapseName'),'ws1'))]",
-    "synapseName": "[toLower(concat(parameters('companyTla'),parameters('deploymentType')))]",
-    "synapseSQLPoolName": "[toLower(concat(variables('workspaceName'),'p1'))]",
+    "deploymentType": "poc",
+    "synapseName": "[toLower(concat(parameters('companyTla'),uniquestring(resourceGroup().id),variables('deploymentType')))]",
+    "sqlPoolName": "[toLower(concat(variables('workspaceName'),'p1'))]",
     "workspaceName": "[toLower(concat(variables('synapseName'),'ws1'))]",
     "getRESTAPI": "subscriptions/@{variables('RestAPIVariables')['SubscriptionId']}/resourceGroups/@{variables('RestAPIVariables')['ResourceGroupName']}/providers/Microsoft.Synapse/workspaces/@{variables('RestAPIVariables')['workspaceName']}/sqlPools/@{variables('RestAPIVariables')['sqlPoolName']}?api-version=2019-06-01-preview",
     "pauseRESTAPI": "subscriptions/@{variables('RestAPIVariables')['SubscriptionId']}/resourceGroups/@{variables('RestAPIVariables')['ResourceGroupName']}/providers/Microsoft.Synapse/workspaces/@{variables('RestAPIVariables')['workspaceName']}/sqlPools/@{variables('RestAPIVariables')['sqlPoolName']}/pause?api-version=2019-06-01-preview",
@@ -79,8 +79,8 @@
                     "name": "RestAPIVariables",
                     "type": "Object",
                     "value": {
-                      "workspaceName": "[variables('synapseWorkspaceName')]",
-                      "sqlPoolName": "[variables('synapseSQLPoolName')]",
+                      "workspaceName": "[variables('workspaceName')]",
+                      "sqlPoolName": "[variables('sqlPoolName')]",
                       "ResourceGroupName": "[resourceGroup().name]",
                       "SubscriptionId": "[subscription().subscriptionId]",
                       "TenantId": "[subscription().tenantId]",
