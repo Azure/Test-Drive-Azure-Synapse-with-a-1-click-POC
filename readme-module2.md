@@ -45,6 +45,6 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
 8.  Select **Next: Start Ingestion** and this will begin the ingestion process for the data. It is complete once all the files display a green checkmark. Click **Close** to complete.
 9.  Validate ingestion by selecting **Query** on the left-side pane, clicking on the taxitripdatabase -> taxitriptable and you will see all of the data within the table. The same will be found in Synapse studio. 
 
-![Ingesting Data](
+![Ingesting Data](https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/raw/nataliarodri906-patch-1/images/gif3.gif)
    
 
