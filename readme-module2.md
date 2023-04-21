@@ -22,12 +22,24 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
    |Default cache period | 31 | The time span (in days) for which to keep frequently queried data available in SSD storage or RAM, rather than in longer-term storage  
 3. Select **Create** to create the database. Creation typically takes less than a minute.  
 
-## Ingest Taxi Trip data and analyze  
+## Ingesting Taxi Trip data  
 
-1. In Synapse studio, on the left-side pane, select **Develop.**  
-2. Under **KQL scripts**, Select + (Add new resource) > **KQL script**. On the right-side pane, you can name your script.
-3. In the **Connect to** menu, select *adxpooltaxitrip*.  
-4. In the **Use database** menu, select *TaxiTripDatabase*  
-5. Paste in the following command, and select **Run** to create a TaxiTrip table.
+1. In Synapse studio, on the left-side pane, select **Data** 
+2. Right click ADX database and click on **Open in Azure Data Explorer**. This opens the Azure Data Explorer web UI. 
+3. Once in the web UI click on the **Data** tab on the left. This opens the ADX "One-Click UI", where you can quickly ingest data, create database tables, and automatically map the table schema.  
+4. Click on **Ingest data**, and then enter the following details:
+   | Setting | Value | Description |
+   |:------|:------|:------
+   | Cluster | adxpooltaxitrip | Enter name of Data Explorer pool created |
+   | Database | taxitripdatabase | Enter name of database created |
+   | New Table | taxitriptable | Enter the name for the table that will hold the taxi trip data | 
+6. Select **Next**, and then enter the following information for **Source**.
+   - Under *Source type* choose **File**.
+   - Under *Upload Files*, click on *Browse Files*, and under **File Name** paste the following Github URL: https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/raw/main/tripDataAndFaresCSV/trip-data.csv
+   - Ensure the *trip-data.csv* file was properly uploaded.  
+7.  Select **Next:Schema** and leave all the information as default. This page displays the schema and a partial data preview of the **taxitriptable** that will be created.
+8.  Select **Next: Start Ingestion** and this will begin the ingestion process for the data.
+
+
    
 
