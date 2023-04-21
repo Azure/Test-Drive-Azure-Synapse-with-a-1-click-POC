@@ -29,7 +29,7 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
 ## Ingesting Taxi Trip data  
 
 1. In Synapse studio, on the left-side pane, select **Data** 
-2. Right click ADX database and click on **Open in Azure Data Explorer**. This opens the Azure Data Explorer web UI. 
+2. Right-click ADX database and click on **Open in Azure Data Explorer**. This opens the Azure Data Explorer web UI. 
 3. Once in the web UI click on the **Data** tab on the left. This opens the ADX "One-Click UI", where you can quickly ingest data, create database tables, and automatically map the table schema.  
 4. Click on **Ingest data**, and then enter the following details:
    | Setting | Value | Description |
@@ -37,12 +37,13 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
    | Cluster | adxpooltaxitrip | Enter name of Data Explorer pool created |
    | Database | taxitripdatabase | Enter name of database created |
    | New Table | taxitriptable | Enter the name for the table that will hold the taxi trip data | 
-6. Select **Next**, and then enter the following information for **Source**.
+6. Select **Next**, and then enter the following information for **Source**:
    - Under *Source type* choose **File**.
-   - Under *Upload Files*, click on *Browse Files*, and under **File Name** paste the following Github URL: https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/raw/main/tripDataAndFaresCSV/trip-data.csv
-   - Ensure the *trip-data.csv* file was properly uploaded.  
-7.  Select **Next:Schema** and leave all the information as default. This page displays the schema and a partial data preview of the **taxitriptable** that will be created.
-8.  Select **Next: Start Ingestion** and this will begin the ingestion process for the data.
+   - Under *Upload Files -> Browse Files -> File Name* paste the following Github URL: https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/raw/main/tripDataAndFaresCSV/trip-data.csv
+   - Ensure the **trip-data.csv** file was properly uploaded by seeing a green checkmark under the **status** column.
+7.  Select **Next: Schema** and leave all the information as default. This page displays the schema and a partial data preview of the **taxitriptable** that will be created.
+8.  Select **Next: Start Ingestion** and this will begin the ingestion process for the data. It is complete once all the files display a green checkmark. Click **Close** to complete.
+9.  Validate ingestion by selecting **Query** on the left-side pane, clicking on the taxitripdatabase -> taxitriptable and you will see all of the data within the table. The same will be found in Synapse studio. 
 
 ![Ingesting Data](
    
