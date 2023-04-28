@@ -134,3 +134,4 @@ Create PowerBI workspace --> https://docs.microsoft.com/en-us/power-bi/collabora
 
 ![20211014144422](https://user-images.githubusercontent.com/88354448/137524861-ac32c4dc-856f-41e9-8f01-8dfa0cc7baae.gif)
 
+[Click **Next** to proceed to Module 2](readme-module2.md)
