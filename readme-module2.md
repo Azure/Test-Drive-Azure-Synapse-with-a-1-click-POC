@@ -82,4 +82,12 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
    
 ## Steps for PowerBI integration and visualization
 
+1. Now we are going to demonstrate how to create and visualize the Anomalies chart on PowerBI. Download [NYCTaxiCabTripAndFare.pbit] (https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/tree/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit) from PowerBITemplate folder.    
+2. Provide ServerName, DatabaseName and login credentials. ServerName and DatabaseName can be found in connection strings.  
+3. To get the connection string, click on Dedicated SQL Pool. On the left hand side menu, click on connection strings. Copy ServerName and DatabaseName from connection string, paste them in PowerBI and click on 'Load'.  
+4. Select 'Database' (instead of default 'Windows') and provide User name, Password and click on 'Connect'  
+5. Change the code to your connection strings.
+6. Before and after visual  
+7. This visual shows the pattern of ridecount throughout the day along with the anomalies found in that day.  
+
 
