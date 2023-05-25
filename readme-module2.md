@@ -73,11 +73,11 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
    
       ![timechart2](images/KQLgif5.gif)  
    
-   *f.* It it uses the *"series_decompose_anomalies"* function to identify anomalies in the ride count data. Then, it visualizes the anomalies as an anomaly chart titled "Anomalies on NYC taxi rides". Anomalies can be seen as red dots on the chart.  
+   *f.* It it uses the *"series_decompose_anomalies"* function to identify anomalies in the ride count data with a threshold of 0.5. Then, it visualizes the anomalies as an anomaly chart titled "Anomalies on NYC taxi rides". Anomalies can be seen as red dots on the chart.  
    
      ![anomalieschart](images/KQLgif6.gif)  
      
-   *g.* List Anomalies: Uses the *"series_decompose_anomalies"* function to identify anomalies in the ride count data and extends the table with an *'anomalies'* column. The *"mv-expand"* function is used to expand the table to separate rows for each ride count and its corresponding anomaly value and pickup datetime. The code then filters the table to only include rows where the anomaly value is not equal to zero. The table is sorted by pickup datetime and the first 10 rows are selected for further analysis.  
+   *g.* Uses the *"series_decompose_anomalies"* function to identify anomalies in the ride count data and extends the table with an *'anomalies'* column. The *"mv-expand"* function is used to expand the table to separate rows for each ride count and its corresponding anomaly value and pickup datetime. The code then filters the table to only include rows where the anomaly value is not equal to zero. The table is sorted by pickup datetime and the first 10 rows are selected for further analysis.  
    
       ![anomalieslist](images/KQLgif7.gif)  
       
@@ -85,7 +85,7 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
    
       ![decomposeanomalies](images/KQLgif8.gif)  
       
-   *i.* This code retrieves data from the **'FaresData'** table using a SQL request in Azure Synapse Data Explorer. It then projects specific columns from the retrieved data, including converting some columns to specific data types. Finally, it performs a left outer join with the *"taxitriptable"* table based on matching values in the *"medallion"*, *"hack_license"*, *"vendor_id"*, and *"pickup_datetime"* columns. Overall, it joined data from synapse SQL pool and data explorer pool to visualize later in PowerBI.  
+   *i.* This code retrieves data from the **'FaresData'** table using a SQL request. It then projects specific columns from the retrieved data, including converting some columns to specific data types. Finally, it performs a left outer join with the *"taxitriptable"* table based on matching values in the *"medallion"*, *"hack_license"*, *"vendor_id"*, and *"pickup_datetime"* columns. Overall, it joined data from synapse SQL pool and data explorer pool to visualize later in PowerBI.  
    
       ![join](images/KQLgif9.gif)
    
@@ -101,8 +101,12 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
 5. **Important:** Once the file loads you need to edit the *'TripsFares'* query with your ServerName and DatabaseName to execute the previously created query in step i, using your ADX pool in the Power Query Editor. To do this, click on the **Transform** button found in the top ribbon and then click on the *'TripsFares'* query found on the left-hand side menu. After this, open the **Advanced Editor** found in the top ribbon. Now you can copy ServerName and DatabaseName from the connection string and paste them in PowerBI advanced editor, as shown below. Finish by clicking on **Done** and then select **Close & Apply** to apply the changes made. Your visualization should now be fully displayed.   
 
    ![PBIgif4](images/PBIgif4.gif)  
-   
-6. As one can see from the visualizations below, in Module 1 we were able to visualize all of the ride locations in the given area in New York along with the Total Trip Distance, Average Trip Distance, Average Trip Fare and Average Passenger Count. In module 2, we then visualized the pattern of ridecount throughout the day along with the anomalies, score and baseline found in that day using the ADX pool and KQL queries.  
+  
+6. Now change the sensitivity level to 'Public' and save the dashboard. Publish the dashboard to the PowerBI workspace you have created by clicking on 'Publish' and selecting the workspace. In Synapse workspage navigate to Develop --> PowerBI --> Refresh. You see the PowerBI report in Synapse you had published in PowerBI workspace.  
+
+   ![PBIgif5](images/PBIgif5.gif)
+
+7. As one can see from the visualizations below, in Module 1 we were able to visualize all of the ride locations in a given area of New York City along with the *Total Trip Distance*, *Average Trip Distance*, *Average Trip Fare* and *Average Passenger Count*. In module 2, we then visualized the pattern of the number of rides (ridecount) throughout a day (January 13th) in NYC along with the determined anomalies, score and baseline found in that day using the KQL queries and the Data Explorer pool in Synapse.  
 
 **Before: (Module 1)**  
 
