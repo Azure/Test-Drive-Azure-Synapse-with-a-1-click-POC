@@ -82,12 +82,21 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
    
 ## Steps for PowerBI integration and visualization
 
-1. Now we are going visualize the timechart that shows the pattern of ridecount (number of rides) through out the day along with the anomalies found previously. Start by downloading: [NYCTaxiCabTripAndFare.pbit] (https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/tree/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit) from PowerBITemplate folder.    
-2. Provide ServerName, DatabaseName and login credentials. ServerName and DatabaseName can be found in connection strings.  
-3. To get the connection string, click on Dedicated SQL Pool. On the left hand side menu, click on connection strings. Copy ServerName and DatabaseName from connection string, paste them in PowerBI and click on 'Load'.  
-4. Select 'Database' (instead of default 'Windows') and provide User name, Password and click on 'Connect'  
-5. Change the code to your connection strings.
-6. Before and after visual  
-7. This visual shows the pattern of ridecount throughout the day along with the anomalies found in that day.  
+1. We will now proceed to visualize the time chart, which was previously generated to display the pattern of ride counts throughout the day, along with the detected anomalies, baseline, and corresponding scores. This visualization will be accomplished using PowerBI. Start by downloading the following PBI file from the PowerBITemplate folder:  
+    [NYCTaxiCabTripAndFare.pbit] (https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/tree/main/synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare.pbit)  
+3. Open the downloaded PBI file and provide ServerName, DatabaseName and login credentials. ServerName and DatabaseName can be found in connection strings.  
+4. To get the connection string, click on Dedicated SQL Pool. On the left hand side menu, click on connection strings. Copy ServerName and DatabaseName from connection string, paste them in PowerBI and click on 'Load'.  
+   ![PBIgif3](images/PBIgif3.gif)
+
+5. **Important:** Once the file loads you need to edit the *'TripsFares'* query with your ServerName and DatabaseName to execute the previously created query in step i, using your ADX pool in the Power Query Editor. To do this, click on the **Transform** button found in the top ribbon and then click on the *'TripsFares'* query found on the left-hand side menu. After this, open the **Advanced Editor** found in the top ribbon. Now you can copy ServerName and DatabaseName from the connection string and paste them in PowerBI advanced editor, as shown below. Finish by clicking on **Done** and then select **Close & Apply** to apply the changes made. Your visualization should now be fully displayed.   
+   ![PBIgif4](images/PBIgif4.gif)  
+   
+- As one can see from the visualizations below, in Module 1 we were able to visualize all of the ride locations in the given area in New York along with the Total Trip Distance, Average Trip Distance, Average Trip Fare and Average Passenger Count. In module 2, we then visualized the pattern of ridecount throughout the day along with the anomalies, score and baseline found in that day using the ADX pool and KQL queries.  
+-**Before:**  
+   ![PBIModule1](images/ADXPBI.png)  
+-**After:**  
+   ![ADXPBI](images/ADXPBI.png)  
+   
+   
 
 
