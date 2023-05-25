@@ -54,30 +54,39 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
 3. Once in the notebook, ensure you are connected to your ADX pool **'adxpooltaxitrip'** and database **'taxitripdatabase'** and then run each of the sections (a-i) of the script separately and observe the results:  
 
    *a.* Counts the number of records in the **'taxitriptable'**.  
+   
       ![count](images/KQLgif1.gif)  
 
    *b.* Summarizes the minimum and maximum values of the *'pickup_datetime'* columns in the **'taxitriptable'**.   
+   
       ![summarize1](images/KQLgif2.gif)  
    
    *c.* Summarizes the count of records in the **'taxitriptable'** by grouping them into daily intervals based on the *'pickup_datetime'* column.  
+   
       ![summarize2](images/KQLgif3.gif)    
       
    *d.* Filters the **'taxitriptable'** to select records with pickup datetime between January 1, 2013, 01:04:00 (UTC) and January 19th, 2013, 19:49:49 (UTC) (which are the min and max found in step b), then counts the number of rides in 15 minute intervals within that time range, and finally visualizes the results as a time chart.
+   
       ![timechart1](images/KQLgif4.gif)  
       
-   *e.* Now we are trimming the tails of the dataset by filtering the **'taxitriptable'** to select records with a pickup datetime between January 13, 2013, 00:00:00 and January 13, 2013, 16:15:00. Similarly it then counts the number of rides in 15 minute intervals within that time range, and finally visualizes the results as a time chart. Ultimately, this timechart shows the pattern of ridecount through out the day.   
+   *e.* Now we are trimming the tails of the dataset by filtering the **'taxitriptable'** to select records with a pickup datetime between January 13, 2013, 00:00:00 and January 13, 2013, 16:15:00. Similarly it then counts the number of rides in 15 minute intervals within that time range, and finally visualizes the results as a time chart. Ultimately, this timechart shows the pattern of ridecount through out the day.  
+   
       ![timechart2](images/KQLgif5.gif)  
    
    *f.* It it uses the *"series_decompose_anomalies"* function to identify anomalies in the ride count data. Then, it visualizes the anomalies as an anomaly chart titled "Anomalies on NYC taxi rides". Anomalies can be seen as red dots on the chart.  
+   
      ![anomalieschart](images/KQLgif6.gif)  
      
    *g.* List Anomalies: Uses the *"series_decompose_anomalies"* function to identify anomalies in the ride count data and extends the table with an *'anomalies'* column. The *"mv-expand"* function is used to expand the table to separate rows for each ride count and its corresponding anomaly value and pickup datetime. The code then filters the table to only include rows where the anomaly value is not equal to zero. The table is sorted by pickup datetime and the first 10 rows are selected for further analysis.  
+   
       ![anomalieslist](images/KQLgif7.gif)  
       
    *h.* Uses the *"series_decompose_anomalies"* function to decompose the ride count data into anomalies, score, and baseline values. The table is expanded to separate rows for each anomaly, pickup datetime, ride count, score, and baseline. Finally, the table is projected to include the anomalies, pickup datetime, ride count, score, and baseline columns, where the anomalies column is set to null if the anomaly value is 0.  
+   
       ![decomposeanomalies](images/KQLgif8.gif)  
       
    *i.* This code retrieves data from the **'FaresData'** table using a SQL request in Azure Synapse Data Explorer. It then projects specific columns from the retrieved data, including converting some columns to specific data types. Finally, it performs a left outer join with the *"taxitriptable"* table based on matching values in the *"medallion"*, *"hack_license"*, *"vendor_id"*, and *"pickup_datetime"* columns. Overall, it joined data from synapse SQL pool and data explorer pool to visualize later in PowerBI.  
+   
       ![join](images/KQLgif9.gif)
    
 ## Steps for PowerBI integration and visualization
@@ -85,16 +94,22 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
 1. We will now proceed to visualize the time chart, which was previously generated to display the pattern of ride counts throughout the day, along with the detected anomalies, baseline, and corresponding scores. This visualization will be accomplished using PowerBI. Start by downloading the following PBI file from the PowerBITemplate folder:  
     ![NYCTaxiCabTripAndFare2.pbit](synapsepoc/PowerBITemplate/NYCTaxiCabTripAndFare2.pbit)  
 3. Open the downloaded PBI file and provide ServerName, DatabaseName and login credentials. ServerName and DatabaseName can be found in connection strings.  
-4. To get the connection string, click on Dedicated SQL Pool. On the left hand side menu, click on connection strings. Copy ServerName and DatabaseName from connection string, paste them in PowerBI and click on 'Load'.  
+4. To get the connection string, click on Dedicated SQL Pool. On the left hand side menu, click on connection strings. Copy ServerName and DatabaseName from connection string, paste them in PowerBI and click on 'Load'.
+ 
    ![PBIgif3](images/PBIgif3.gif)
 
 5. **Important:** Once the file loads you need to edit the *'TripsFares'* query with your ServerName and DatabaseName to execute the previously created query in step i, using your ADX pool in the Power Query Editor. To do this, click on the **Transform** button found in the top ribbon and then click on the *'TripsFares'* query found on the left-hand side menu. After this, open the **Advanced Editor** found in the top ribbon. Now you can copy ServerName and DatabaseName from the connection string and paste them in PowerBI advanced editor, as shown below. Finish by clicking on **Done** and then select **Close & Apply** to apply the changes made. Your visualization should now be fully displayed.   
+
    ![PBIgif4](images/PBIgif4.gif)  
    
 6. As one can see from the visualizations below, in Module 1 we were able to visualize all of the ride locations in the given area in New York along with the Total Trip Distance, Average Trip Distance, Average Trip Fare and Average Passenger Count. In module 2, we then visualized the pattern of ridecount throughout the day along with the anomalies, score and baseline found in that day using the ADX pool and KQL queries.  
+
 **Before: (Module 1)**  
+
    ![PBIModule1](images/PBIModule1.png)  
+   
 **After: (Module 2)**  
+
    ![ADXPBI](images/ADXPBI.png)  
    
 ## Summarization
