@@ -1,0 +1,90 @@
+//                    [\
+//               .----' `-----.
+//              //^^^^;;^^^^^^`\
+//      _______//_____||_____()_\________
+//     /212    :      : ___              `\
+//    |>   ____;      ;  |/\><|   ____   _<)
+//   {____/    \_________________/    \____}
+//        \ '' /                 \ '' /
+//         '--'                   '--'
+
+
+// a. Counts the number of records in the 'taxitriptable' table.
+taxitriptable
+| count
+
+// b. Summarizes the minimum and maximum values of the 'pickup_datetime' columns in the 'taxitriptable'.
+taxitriptable
+| summarize min(pickup_datetime), max(pickup_datetime)
+
+// c.  Summarizes the count of records in the 'taxitriptable' by grouping them into daily intervals based on the 'pickup_datetime' column.
+taxitriptable
+| summarize count() by bin( pickup_datetime , 1d)
+
+// d. Filters the 'taxitriptable' to select records with pickup datetime between January 1, 2013, 01:04:00 (UTC) 
+//    and January 19th, 2013, 19:49:49 (UTC) (which are the min and max found in step b), 
+//    then counts the number of rides in 15 minute intervals within that time range, and finally visualizes the results as a time chart.
+taxitriptable
+| where pickup_datetime between (datetime(2013-01-01T01:04:00Z) .. datetime(2013-01-19T19:49:49Z))
+| make-series ridecount=count() on pickup_datetime from datetime(2013-01-01T01:04:00Z) to datetime(2013-01-19T19:49:49Z) step 15min
+| render timechart 
+
+// e. Now we are trimming the tails of the dataset by filtering the 'taxitriptable' 
+//    to select records with a pickup datetime between January 13, 2013, 00:00:00 and January 13, 2013, 16:15:00. 
+//    Similarly it then counts the number of rides in 15 minute intervals within that time range, 
+//    and finally visualizes the results as a time chart. Ultimately, this timechart shows the pattern of ridecount through out the day.
+taxitriptable
+| where pickup_datetime between (datetime(2013-01-13 00:00:00.0) .. datetime(2013-01-13 16:15))
+| make-series ridecount=count() on pickup_datetime from datetime(2013-01-13 00:00:00.0) to datetime(2013-01-13 16:15) step 15min
+| render timechart 
+
+// f. It it uses the "series_decompose_anomalies" function to identify anomalies in the ride count data with a threshold of 0.5. 
+//    Then, it visualizes the anomalies as an anomaly chart titled "Anomalies on NYC taxi rides".
+//    Anomalies can be seen as red dots on the chart.
+taxitriptable
+| where pickup_datetime between (datetime(2013-01-13 00:00:00.0) .. datetime(2013-01-13 16:15))
+| make-series ridecount=count() on pickup_datetime from datetime(2013-01-13 00:00:00.0) to datetime(2013-01-13 16:15) step 15min
+| extend anomalies = series_decompose_anomalies(ridecount,0.5)
+| render anomalychart with(anomalycolumns=anomalies, title='anomalies on nyc taxi rides')
+
+// g. List Anomalies: Uses the "series_decompose_anomalies" function to identify anomalies in the ride count data
+//    and extends the table with an 'anomalies' column. The "mv-expand" function is used to expand the table to separate rows
+//    for each ride count and its corresponding anomaly value and pickup datetime. 
+//    The code then filters the table to only include rows where the anomaly value is not equal to zero. 
+//    The table is sorted by pickup datetime and the first 10 rows are selected for further analysis.
+taxitriptable
+| make-series ridecount=count() on pickup_datetime from datetime(2013-01-13 00:00:00.0) to datetime(2013-01-13 16:15) step 15min
+| extend anomalies = series_decompose_anomalies(ridecount,0.5)
+| mv-expand ridecount, anomalies, pickup_datetime
+| where toint(anomalies)  <> 0
+| sort by todatetime(pickup_datetime)
+| take 10 
+
+// h. Uses the "series_decompose_anomalies" function to decompose the ride count data into anomalies, score, and baseline values. 
+//    The table is expanded to separate rows for each anomaly, pickup datetime, ride count, score, and baseline. 
+//    Finally, the table is projected to include the anomalies, pickup datetime, ride count, score, and baseline columns,
+//    where the anomalies column is set to null if the anomaly value is 0.
+taxitriptable
+| make-series ridecount=count() on pickup_datetime from datetime(2013-01-13 00:00:00.0) to datetime(2013-01-13 16:15) step 15min
+| extend (anomalies, score, baseline) = series_decompose_anomalies(ridecount, 0.5)
+| mv-expand anomalies, pickup_datetime, ridecount, score, baseline
+| project anomalies = iff(toint(anomalies) == 0,int(null),toint(anomalies)), pickup_datetime, ridecount, score, baseline
+
+// i. This code retrieves data from the 'FaresData' table using a SQL request.
+//    It then projects specific columns from the retrieved data, including converting some columns to specific data types. 
+//    Finally, it performs a left outer join with the "taxitriptable" table based on matching values in the
+//    "medallion", "hack_license", "vendor_id", and "pickup_datetime" columns. 
+//    Overall, it joined data from synapse SQL pool and data explorer pool to visualize later in PowerBI.
+let FaresData= evaluate sql_request(
+  'Server=tcp:micbxthup2nqlpf2pocws1.sql.azuresynapse.net,1433;'  // my synapse data explorer pool
+    'Authentication="Active Directory Integrated";'
+    'Initial Catalog=micbxthup2nqlpf2pocws1p1;', // my dw name
+  'select * from dbo.FaresData ');
+FaresData
+| project toguid(medallion), toguid(hack_license), tostring(vendor_id), todatetime(pickup_datetime), payment_type, todecimal(fare_amount)
+, todecimal(surcharge), todecimal(mta_tax), todecimal(tip_amount), todecimal(tolls_amount), todecimal(total_amount)
+| join kind=leftouter taxitriptable on $left.medallion == $right.medallion,  $left.hack_license == $right.hack_license,
+ $left.vendor_id == $right.vendor_id, $left.pickup_datetime == $right.pickup_datetime 
+ 
+
+
