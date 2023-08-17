@@ -11,7 +11,7 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
    | Node Size | Small(4 cores) | Set this to the smallest size to reduce costs for this quickstart |  
  3. Select **Review + Create > Create.** Your data explorer will start the provisioning process. Once it is complete move on to the next step.
 
-![Creating ADX pool](https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/raw/nataliarodri906-patch-1/images/gif1.gif)
+![Creating ADX pool](images/gif1.gif)
 
 ## Create a Data Explorer Database  
 1. In Synapse Studio, on the left-side pane, Select **Data**.  
@@ -24,7 +24,7 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
    |Default cache period | 31 | The time span (in days) for which to keep frequently queried data available in SSD storage or RAM, rather than in longer-term storage  
 3. Select **Create** to create the database. Creation typically takes less than a minute.  
 
-![Creating Data Explorer Pool](https://github.com/Azure/Test-Drive-Azure-Synapse-with-a-1-click-POC/raw/nataliarodri906-patch-1/images/gif2.gif)
+![Creating Data Explorer Pool](images/gif2.gif)
 
 ## Ingesting Taxi Trip data  
 
