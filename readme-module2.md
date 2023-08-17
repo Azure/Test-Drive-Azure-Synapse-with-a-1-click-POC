@@ -98,15 +98,17 @@ Module 2 will be focused on the basic steps to load and analyze the Trip Data (t
  
    ![PBIgif3](images/PBIgif3.gif)
 
-5. **Important:** Once the file loads you need to edit the *'TripsFares'* query with your ServerName and DatabaseName to execute the previously created query in step i, using your ADX pool in the Power Query Editor. To do this, click on the **Transform** button found in the top ribbon and then click on the *'TripsFares'* query found on the left-hand side menu. After this, open the **Advanced Editor** found in the top ribbon. Now you can copy ServerName and DatabaseName from the connection string and paste them in PowerBI advanced editor, as shown below. Finish by clicking on **Done** and then select **Close & Apply** to apply the changes made. Your visualization should now be fully displayed.   
-
-   ![PBIgif4](images/PBIgif4.gif)  
+5. **Important:** Once the file loads you need to edit the *'TripsFares'* query with your ServerName and DatabaseName to execute the previously created query in step i, using your ADX pool in the Power Query Editor. To do this, click on the **Transform** button found in the top ribbon and then click on the *'TripsFares'* query found on the left-hand side menu. After this, open the **Advanced Editor** found in the top ribbon. Now you can copy ServerName and DatabaseName from the connection string and paste them in PowerBI advanced editor, as shown below. Finish by clicking on **Done** and then select **Close & Apply** to apply the changes made. Your visualization should now be fully displayed.
+   
+   ![AdvancedEditorScreenshot](images/AdvancedEditorScreenshot01.png)  
+   
+   ![PBIgif4](images/PBIgif4.gif)    
   
-6. Now change the sensitivity level to 'Public' and save the dashboard. Publish the dashboard to the PowerBI workspace you have created by clicking on 'Publish' and selecting the workspace. In Synapse workspage navigate to Develop --> PowerBI --> Refresh. You see the PowerBI report in Synapse you had published in PowerBI workspace.  
+7. Now change the sensitivity level to 'Public' and save the dashboard. Publish the dashboard to the PowerBI workspace you have created by clicking on 'Publish' and selecting the workspace. In Synapse workspage navigate to Develop --> PowerBI --> Refresh. You see the PowerBI report in Synapse you had published in PowerBI workspace.  
 
    ![PBIgif5](images/PBIgif5.gif)
 
-7. As one can see from the visualizations below, in Module 1 we were able to visualize all of the ride locations in a given area of New York City along with the *Total Trip Distance*, *Average Trip Distance*, *Average Trip Fare* and *Average Passenger Count*. In module 2, we then visualized the pattern of the number of rides (ridecount) throughout a day (January 13th) in NYC along with the determined anomalies, score and baseline found in that day using the KQL queries and the Data Explorer pool in Synapse.  
+8. As one can see from the visualizations below, in Module 1 we were able to visualize all of the ride locations in a given area of New York City along with the *Total Trip Distance*, *Average Trip Distance*, *Average Trip Fare* and *Average Passenger Count*. In module 2, we then visualized the pattern of the number of rides (ridecount) throughout a day (January 13th) in NYC along with the determined anomalies, score and baseline found in that day using the KQL queries and the Data Explorer pool in Synapse.  
 
 **Before: (Module 1)**  
 
